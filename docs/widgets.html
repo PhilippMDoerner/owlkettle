@@ -1,0 +1,1132 @@
+<!DOCTYPE HTML>
+<html lang="en-us" class="sidebar-visible no-js Rust">
+    <head>
+        <!-- Book generated using nimibook -->
+        <meta charset="UTF-8">
+        <title>General Widget Reference - Owlkettle</title>
+
+        <!-- Custom HTML head -->
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Freshly brewed user interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🐳</text></svg>">
+        <link rel="stylesheet" href="../assets/css/variables.css">
+        <link rel="stylesheet" href="../assets/css/general.css">
+        <link rel="stylesheet" href="../assets/css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../assets/FontAwesome/css/font-awesome.min.css">
+
+        <!-- Highlight.js Stylesheets - I could use nimib native highlight but let's keep it for styling... -->
+        <link rel="stylesheet" href="../assets/css/highlight.css">
+        <link rel="stylesheet" href="../assets/css/tomorrow-night.css">
+        <link rel="stylesheet" href="../assets/css/ayu-highlight.css">
+
+        <!-- Custom theme stylesheets - why the "../"? -->
+
+
+        
+
+            <script src="https://cdn.jsdelivr.net/gh/pietroppeter/nimib@main/assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+        
+        <!-- plausible analytics (new in nimibook) -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "..//assets";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "Rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('Rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                                <ol class="chapter">
+                <li class="chapter-item expanded ">
+                  <a href="../README.html" tabindex="0">
+                    <strong aria-hidden="true">1.</strong> Welcome to Owlkettle!
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/tutorial.html" tabindex="0">
+                    <strong aria-hidden="true">2.</strong> Tutorial
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../examples/README.html" tabindex="0">
+                    <strong aria-hidden="true">3.</strong> General Examples
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/recommended_tools.html" tabindex="0">
+                    <strong aria-hidden="true">4.</strong> Tooling
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/reference.html" tabindex="0">
+                    <strong aria-hidden="true">5.</strong> Reference
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets.html" class="active" tabindex="0">
+                    <strong aria-hidden="true">5.1.</strong> General Widget Reference
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets_adwaita.html" tabindex="0">
+                    <strong aria-hidden="true">5.2.</strong> Adwaita Widget Reference
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets_dataentries.html" tabindex="0">
+                    <strong aria-hidden="true">5.3.</strong> DataEntry Widget Reference
+                  </a></li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals.html" tabindex="0">
+                    <strong aria-hidden="true">6.</strong> Internals
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/custom_widgets.html" tabindex="0">
+                    <strong aria-hidden="true">6.1.</strong> Custom Widgets
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.</strong> Adders
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/one_adder.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.1.</strong> One Adder
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/adders_with_properties.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.2.</strong> Adders With Properties
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/multiple_adders.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.3.</strong> Multiple Adders
+                  </a></li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.</strong> Hooks
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.1.</strong> Build Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/before_build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.2.</strong> BeforeBuild Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/after_build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.3.</strong> AfterBuild Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/event_hooks.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.4.</strong> Event Hooks
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/update_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.5.</strong> Update Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/property_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.6.</strong> Property Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/read_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.7.</strong> Read Hook
+                  </a></li>
+                  </ol>
+                  </li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../CONTRIBUTING.html" tabindex="0">
+                    <strong aria-hidden="true">7.</strong> Contributing
+                  </a></li>
+                </ol>
+<!-- I could use also an unescaped context value -->
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title">Owlkettle</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/can-lehmann/owlkettle" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1>Widgets</h1>
+<h2>BaseWidget</h2>
+<pre><code class="language-nim">renderable BaseWidget
+</code></pre>
+<p>The base widget of all widgets. Supports redrawing the entire Application
+by calling `<WidgetName>State.app.redraw()</p>
+<h6>Fields</h6>
+<ul>
+<li><code>sensitive: bool = true</code> If the widget is interactive</li>
+<li><code>sizeRequest: tuple[x, y: int] = (-1, -1)</code> Requested widget size. A value of -1 means that the natural size of the widget will be used.</li>
+<li><code>tooltip: string = &quot;&quot;</code> The widget's tooltip is shown on hover</li>
+</ul>
+<h6>Setters</h6>
+<ul>
+<li><code>margin: int</code></li>
+<li><code>margin: Margin</code></li>
+</ul>
+<h2>BaseWindow</h2>
+<pre><code class="language-nim">renderable BaseWindow of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>defaultSize: tuple[width, height: int] = (800, 600)</code> Initial size of the window</li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>close: <code>proc ()</code> Called when the window is closed</li>
+</ul>
+<h2>Window</h2>
+<pre><code class="language-nim">renderable Window of BaseWindow
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWindow">BaseWindow</a></li>
+<li><code>title: string</code></li>
+<li><code>titlebar: Widget</code> Custom widget set as the titlebar of the window</li>
+<li><code>child: Widget</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>
+<p>All adders from <a href="#BaseWindow">BaseWindow</a></p>
+</li>
+<li>
+<p><code>add</code> Adds a child to the window. Each window may only have one child.</p>
+</li>
+<li>
+<p><code>addTitlebar</code> Sets a custom titlebar for the window</p>
+</li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Window:
+  Label(text = &quot;Hello, world&quot;)
+</code></pre>
+<h2>Box</h2>
+<pre><code class="language-nim">renderable Box of BaseWidget
+</code></pre>
+<p>A Box arranges its child widgets along one dimension.</p>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>orient: Orient</code> Orientation of the Box and its containing elements. May be one of OrientX (to orient horizontally) or OrientY (to orient vertically)</li>
+<li><code>spacing: int</code> Spacing between the children of the Box</li>
+<li><code>children: seq[BoxChild[Widget]]</code></li>
+<li><code>style: set[BoxStyle]</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>add</code> Adds a child to the Box.
+When expand is true, the child grows to fill up the remaining space in the Box.</li>
+</ul>
+<p>The hAlign and vAlign properties allow you to set the horizontal and vertical
+alignment of the child within its allocated area. They may be one of <code>AlignFill</code>,
+<code>AlignStart</code>, <code>AlignEnd</code> or <code>AlignCenter</code>.</p>
+<p>Note: <strong>Any</strong> widgets contained in a Box-Widget get access to all properties of the adder (such add <code>expand</code>=, to control their behaviour inside of the Box!    widget.hasChildren = true</p>
+<ul>
+<li><code>expand = true</code></li>
+<li><code>hAlign = AlignFill</code></li>
+<li><code>vAlign = AlignFill</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Box:
+  orient = OrientX
+  Label(text = &quot;Label&quot;)
+  Button(text = &quot;Button&quot;) {.expand: false.}
+</code></pre>
+<pre><code class="language-nim">Box:
+  orient = OrientY
+  margin = 12
+  spacing = 6
+  for it in 0 ..&lt; 5:
+    Label(text = &quot;Label &quot; &amp; $it)
+</code></pre>
+<pre><code class="language-nim">HeaderBar {.addTitlebar.}:
+  Box {.addLeft.}:
+    style = {BoxLinked}
+    for it in 0 ..&lt; 5:
+      Button {.expand: false.}:
+        text = &quot;Button &quot; &amp; $it
+        proc clicked() =
+          echo it
+
+</code></pre>
+<h2>Overlay</h2>
+<pre><code class="language-nim">renderable Overlay of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>child: Widget</code></li>
+<li><code>overlays: seq[AlignedChild[Widget]]</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>add</code></li>
+<li><code>addOverlay</code>
+<ul>
+<li><code>hAlign = AlignFill</code></li>
+<li><code>vAlign = AlignFill</code></li>
+</ul>
+</li>
+</ul>
+<h2>Label</h2>
+<pre><code class="language-nim">renderable Label of BaseWidget
+</code></pre>
+<p>The default widget to display text.
+Supports rendering <a href="https://docs.gtk.org/Pango/pango_markup.html#pango-markup">Pango Markup</a>
+if <code>useMarkup</code> is enabled.</p>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>text: string</code> The text of the Label to render</li>
+<li><code>xAlign: float = 0.5</code></li>
+<li><code>yAlign: float = 0.5</code></li>
+<li><code>ellipsize: EllipsizeMode</code> Determines whether to ellipsise the text in case space is insufficient to render all of it. May be one of <code>EllipsizeNone</code>, <code>EllipsizeStart</code>, <code>EllipsizeMiddle</code> or <code>EllipsizeEnd</code></li>
+<li><code>wrap: bool = false</code> Enables/Disable wrapping of text.</li>
+<li><code>useMarkup: bool = false</code> Determines whether to interpret the given text as Pango Markup or not.</li>
+<li><code>style: set[LabelStyle]</code> The style of the text used. May be one of <code>LabelHeading</code>, <code>LabelBody</code> or <code>LabelMonospace</code>.</li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Label:
+  text = &quot;Hello, world!&quot;
+  xAlign = 0.0
+  ellipsize = EllipsizeEnd
+</code></pre>
+<pre><code class="language-nim">Label:
+  text = &quot;Test &quot;.repeat(50)
+  wrap = true
+</code></pre>
+<pre><code class="language-nim">Label:
+  text = &quot;&lt;b&gt;Bold&lt;/b&gt;, &lt;i&gt;Italic&lt;/i&gt;, &lt;span font=\&quot;20\&quot;&gt;Font Size&lt;/span&gt;&quot;
+  useMarkup = true
+</code></pre>
+<h2>Icon</h2>
+<pre><code class="language-nim">renderable Icon of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>name: string</code> See <a href="recommended_tools.md#icons">recommended_tools.md</a> for a list of icons.</li>
+<li><code>pixelSize: int = -1</code> Determines the size of the icon</li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Icon:
+  name = &quot;list-add-symbolic&quot;
+</code></pre>
+<pre><code class="language-nim">Icon:
+  name = &quot;object-select-symbolic&quot;
+  pixelSize = 100
+</code></pre>
+<h2>Picture</h2>
+<pre><code class="language-nim">renderable Picture of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>pixbuf: Pixbuf</code></li>
+<li><code>contentFit: ContentFit = ContentContain</code> Requires GTK 4.8 to fully work, compile with <code>-d:gtk48</code> to enable</li>
+</ul>
+<h2>Button</h2>
+<pre><code class="language-nim">renderable Button of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>style: set[ButtonStyle]</code> Applies special styling to the button. May be one of <code>ButtonSuggested</code>, <code>ButtonDestructive</code>, <code>ButtonFlat</code>, <code>ButtonPill</code> or <code>ButtonCircular</code>. Consult the <a href="https://developer.gnome.org/hig/patterns/controls/buttons.html?highlight=button#button-styles">GTK4 documentation</a> for guidance on what to use.</li>
+<li><code>child: Widget</code></li>
+<li><code>shortcut: string</code> Keyboard shortcut</li>
+</ul>
+<h6>Setters</h6>
+<ul>
+<li><code>text: string</code></li>
+<li><code>icon: string</code> Sets the icon of the Button (see <a href="recommended_tools.md#icons">recommended_tools.md</a> for a list of icons)</li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>clicked: <code>proc ()</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>add</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Button:
+  icon = &quot;list-add-symbolic&quot;
+  style = {ButtonSuggested}
+  proc clicked() =
+    echo &quot;clicked&quot;
+
+</code></pre>
+<pre><code class="language-nim">Button:
+  text = &quot;Delete&quot;
+  style = {ButtonDestructive}
+</code></pre>
+<pre><code class="language-nim">Button:
+  text = &quot;Inactive Button&quot;
+  sensitive = false
+</code></pre>
+<pre><code class="language-nim">Button:
+  text = &quot;Copy&quot;
+  shortcut = &quot;&lt;Ctrl&gt;C&quot;
+  proc clicked() =
+    app.writeClipboard(&quot;Hello, world!&quot;)
+
+</code></pre>
+<h2>HeaderBar</h2>
+<pre><code class="language-nim">renderable HeaderBar of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>title: BoxChild[Widget]</code></li>
+<li><code>showTitleButtons: bool = true</code></li>
+<li><code>left: seq[Widget]</code></li>
+<li><code>right: seq[Widget]</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>addTitle</code> Adds a custom title widget to the HeaderBar.
+When expand is true, it grows to fill up the remaining space in the headerbar.</li>
+</ul>
+<p>The hAlign and vAlign properties allow you to set the horizontal and vertical
+alignment of the child within its allocated area. They may be one of <code>AlignFill</code>,
+<code>AlignStart</code>, <code>AlignEnd</code> or <code>AlignCenter</code>.</p>
+<ul>
+<li>
+<p><code>expand = false</code></p>
+</li>
+<li>
+<p><code>hAlign = AlignFill</code></p>
+</li>
+<li>
+<p><code>vAlign = AlignFill</code></p>
+</li>
+<li>
+<p><code>addLeft</code> Adds a widget to the left side of the HeaderBar.</p>
+</li>
+<li>
+<p><code>addRight</code> Adds a widget to the right side of the HeaderBar.</p>
+</li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Window:
+  title = &quot;Title&quot;
+  HeaderBar {.addTitlebar.}:
+    Button {.addLeft.}:
+      icon = &quot;list-add-symbolic&quot;
+    Button {.addRight.}:
+      icon = &quot;open-menu-symbolic&quot;
+</code></pre>
+<h2>ScrolledWindow</h2>
+<pre><code class="language-nim">renderable ScrolledWindow of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>child: Widget</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>add</code></li>
+</ul>
+<h2>Entry</h2>
+<pre><code class="language-nim">renderable Entry of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>text: string</code></li>
+<li><code>placeholder: string</code> Shown when the Entry is empty.</li>
+<li><code>width: int = -1</code></li>
+<li><code>maxWidth: int = -1</code></li>
+<li><code>xAlign: float = 0.0</code></li>
+<li><code>visibility: bool = true</code></li>
+<li><code>invisibleChar: Rune = '*'.Rune</code></li>
+<li><code>style: set[EntryStyle]</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>changed: <code>proc (text: string)</code> Called when the text in the Entry changed</li>
+<li>activate: <code>proc ()</code> Called when the user presses enter/return</li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Entry:
+  text = app.text
+  proc changed(text: string) =
+    app.text = text
+
+</code></pre>
+<pre><code class="language-nim">Entry:
+  text = app.query
+  placeholder = &quot;Search...&quot;
+  proc changed(query: string) =
+    app.query = query
+
+  proc activate() =
+    ## Runs when enter is pressed
+    echo app.query
+
+</code></pre>
+<pre><code class="language-nim">Entry:
+  placeholder = &quot;Password&quot;
+  visibility = false
+  invisibleChar = '*'.Rune
+</code></pre>
+<h2>Paned</h2>
+<pre><code class="language-nim">renderable Paned of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>orient: Orient</code> Orientation of the panes</li>
+<li><code>initialPosition: int</code> Initial position of the separator in pixels</li>
+<li><code>first: PanedChild[Widget]</code></li>
+<li><code>second: PanedChild[Widget]</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>add</code>
+<ul>
+<li><code>resize = true</code></li>
+<li><code>shrink = false</code></li>
+</ul>
+</li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Paned:
+  initialPosition = 200
+  Box(orient = OrientY) {.resize: false.}:
+    Label(text = &quot;Sidebar&quot;)
+  Box(orient = OrientY) {.resize: true.}:
+    Label(text = &quot;Content&quot;)
+</code></pre>
+<h2>CustomWidget</h2>
+<pre><code class="language-nim">renderable CustomWidget of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>focusable: bool</code></li>
+<li><code>events: CustomWidgetEvents</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>mousePressed: <code>proc (event: ButtonEvent): bool</code></li>
+<li>mouseReleased: <code>proc (event: ButtonEvent): bool</code></li>
+<li>mouseMoved: <code>proc (event: MotionEvent): bool</code></li>
+<li>scroll: <code>proc (event: ScrollEvent): bool</code></li>
+<li>keyPressed: <code>proc (event: KeyEvent): bool</code></li>
+<li>keyReleased: <code>proc (event: KeyEvent): bool</code></li>
+</ul>
+<h2>DrawingArea</h2>
+<pre><code class="language-nim">renderable DrawingArea of CustomWidget
+</code></pre>
+<p>Allows you to render 2d scenes using cairo.
+The <code>owlkettle/cairo</code> module provides bindings for cairo.</p>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#CustomWidget">CustomWidget</a></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>draw: <code>proc (ctx: CairoContext; size: (int, int)): bool</code> Called when the widget is rendered. Redraws the application if the callback returns true.</li>
+</ul>
+<h2>GlArea</h2>
+<pre><code class="language-nim">renderable GlArea of CustomWidget
+</code></pre>
+<p>Allows you to render 3d scenes using OpenGL.</p>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#CustomWidget">CustomWidget</a></li>
+<li><code>useEs: bool = false</code></li>
+<li><code>requiredVersion: tuple[major, minor: int] = (4, 3)</code></li>
+<li><code>hasDepthBuffer: bool = true</code></li>
+<li><code>hasStencilBuffer: bool = false</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>setup: <code>proc (size: (int, int)): bool</code> Called after the OpenGL Context is initialized. Redraws the application if the callback returns true.</li>
+<li>render: <code>proc (size: (int, int)): bool</code> Called when the widget is rendered. Your rendering code should be executed here. Redraws the application if the callback returns true.</li>
+</ul>
+<h2>ColorButton</h2>
+<pre><code class="language-nim">renderable ColorButton of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>color: tuple[r, g, b, a: float] = (0.0, 0.0, 0.0, 1.0)</code> Red, Geen, Blue, Alpha as floating point numbers in the range [0.0, 1.0]</li>
+<li><code>useAlpha: bool = false</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>changed: <code>proc (color: tuple[r, g, b, a: float])</code></li>
+</ul>
+<h2>Switch</h2>
+<pre><code class="language-nim">renderable Switch of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>state: bool</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>changed: <code>proc (state: bool)</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Switch:
+  state = app.state
+  proc changed(state: bool) =
+    app.state = state
+
+</code></pre>
+<h2>ToggleButton</h2>
+<pre><code class="language-nim">renderable ToggleButton of Button
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#Button">Button</a></li>
+<li><code>state: bool</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>changed: <code>proc (state: bool)</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">ToggleButton:
+  text = &quot;Current State: &quot; &amp; $app.state
+  state = app.state
+  proc changed(state: bool) =
+    app.state = state
+
+</code></pre>
+<h2>LinkButton</h2>
+<pre><code class="language-nim">renderable LinkButton of Button
+</code></pre>
+<p>A clickable link.</p>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#Button">Button</a></li>
+<li><code>uri: string</code></li>
+<li><code>visited: bool</code></li>
+</ul>
+<h2>CheckButton</h2>
+<pre><code class="language-nim">renderable CheckButton of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>state: bool</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>changed: <code>proc (state: bool)</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">CheckButton:
+  state = app.state
+  proc changed(state: bool) =
+    app.state = state
+
+</code></pre>
+<h2>BasePopover</h2>
+<pre><code class="language-nim">renderable BasePopover of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>hasArrow: bool = true</code></li>
+<li><code>offset: tuple[x, y: int] = (0, 0)</code></li>
+<li><code>position: PopoverPosition = PopoverBottom</code></li>
+</ul>
+<h2>Popover</h2>
+<pre><code class="language-nim">renderable Popover of BasePopover
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BasePopover">BasePopover</a></li>
+<li><code>child: Widget</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BasePopover">BasePopover</a></li>
+<li><code>add</code></li>
+</ul>
+<h2>PopoverMenu</h2>
+<pre><code class="language-nim">renderable PopoverMenu of BasePopover
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BasePopover">BasePopover</a></li>
+<li><code>pages: Table[string, Widget]</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BasePopover">BasePopover</a></li>
+<li><code>add</code>
+<ul>
+<li><code>name = &quot;main&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h2>MenuButton</h2>
+<pre><code class="language-nim">renderable MenuButton of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>child: Widget</code></li>
+<li><code>popover: Widget</code></li>
+<li><code>style: set[ButtonStyle]</code> Applies special styling to the button. May be one of <code>ButtonSuggested</code>, <code>ButtonDestructive</code>, <code>ButtonFlat</code>, <code>ButtonPill</code> or <code>ButtonCircular</code>. Consult the <a href="https://developer.gnome.org/hig/patterns/controls/buttons.html?highlight=button#button-styles">GTK4 documentation</a> for guidance on what to use.</li>
+</ul>
+<h6>Setters</h6>
+<ul>
+<li><code>text: string</code></li>
+<li><code>icon: string</code> Sets the icon of the MenuButton. Typically <code>open-menu</code> is used. See <a href="recommended_tools.md#icons">recommended_tools.md</a> for a list of icons.</li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>addChild</code></li>
+<li><code>add</code></li>
+</ul>
+<h2>ModelButton</h2>
+<pre><code class="language-nim">renderable ModelButton of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>text: string</code></li>
+<li><code>icon: string</code> The icon of the ModelButton (see <a href="recommended_tools.md#icons">recommended_tools.md</a> for a list of icons)</li>
+<li><code>shortcut: string</code></li>
+<li><code>menuName: string</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>clicked: <code>proc ()</code></li>
+</ul>
+<h2>Separator</h2>
+<pre><code class="language-nim">renderable Separator of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>orient: Orient</code></li>
+</ul>
+<h2>TextView</h2>
+<pre><code class="language-nim">renderable TextView of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>buffer: TextBuffer</code></li>
+<li><code>monospace: bool = false</code></li>
+<li><code>cursorVisible: bool = true</code></li>
+<li><code>editable: bool = true</code></li>
+<li><code>acceptsTab: bool = true</code></li>
+<li><code>indent: int = 0</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>changed: <code>proc ()</code></li>
+</ul>
+<h2>ListBoxRow</h2>
+<pre><code class="language-nim">renderable ListBoxRow of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>child: Widget</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>activate: <code>proc ()</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>add</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">ListBox:
+  for it in 0 ..&lt; 10:
+    ListBoxRow {.addRow.}:
+      proc activate() =
+        echo it
+
+      Label(text = $it)
+</code></pre>
+<h2>ListBox</h2>
+<pre><code class="language-nim">renderable ListBox of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>rows: seq[Widget]</code></li>
+<li><code>selectionMode: SelectionMode</code></li>
+<li><code>selected: HashSet[int]</code></li>
+<li><code>style: set[ListBoxStyle] = {}</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>select: <code>proc (rows: HashSet[int])</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>addRow</code></li>
+<li><code>add</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">ListBox:
+  for it in 0 ..&lt; 10:
+    Label(text = $it)
+</code></pre>
+<h2>FlowBoxChild</h2>
+<pre><code class="language-nim">renderable FlowBoxChild of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>child: Widget</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>add</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">FlowBox:
+  columns = 1 .. 5
+  for it in 0 ..&lt; 10:
+    FlowBoxChild {.addChild.}:
+      Label(text = $it)
+</code></pre>
+<h2>FlowBox</h2>
+<pre><code class="language-nim">renderable FlowBox of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>homogeneous: bool</code></li>
+<li><code>rowSpacing: int</code></li>
+<li><code>columnSpacing: int</code></li>
+<li><code>columns: HSlice[int, int] = 1 .. 5</code></li>
+<li><code>selectionMode: SelectionMode</code></li>
+<li><code>children: seq[Widget]</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>addChild</code></li>
+<li><code>add</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">FlowBox:
+  columns = 1 .. 5
+  for it in 0 ..&lt; 10:
+    Label(text = $it)
+</code></pre>
+<h2>Frame</h2>
+<pre><code class="language-nim">renderable Frame of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>label: string</code></li>
+<li><code>align: tuple[x, y: float] = (0.0, 0.0)</code></li>
+<li><code>child: Widget</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>add</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">Frame:
+  label = &quot;Frame Title&quot;
+  align = (0.2, 0.0)
+  Label:
+    text = &quot;Content&quot;
+</code></pre>
+<h2>DropDown</h2>
+<pre><code class="language-nim">renderable DropDown of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>items: seq[string]</code></li>
+<li><code>selected: int</code></li>
+<li><code>enableSearch: bool</code></li>
+<li><code>showArrow: bool = true</code></li>
+</ul>
+<h6>Events</h6>
+<ul>
+<li>select: <code>proc (item: int)</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">DropDown:
+  items = @[&quot;Option 1&quot;, &quot;Option 2&quot;, &quot;Option 3&quot;]
+  selected = app.selectedItem
+  proc select(itemIndex: int) =
+    app.selectedItem = itemIndex
+
+</code></pre>
+<h2>ContextMenu</h2>
+<pre><code class="language-nim">renderable ContextMenu
+</code></pre>
+<p>Adds a context menu to a widget.
+Context menus are shown when the user right clicks the widget.</p>
+<h6>Fields</h6>
+<ul>
+<li><code>child: Widget</code></li>
+<li><code>menu: Widget</code></li>
+<li><code>controller: GtkEventController = GtkEventController(nil)</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li><code>add</code></li>
+<li><code>addMenu</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">ContextMenu:
+  Label:
+    text = &quot;Right click here&quot;
+  PopoverMenu {.addMenu.}:
+    hasArrow = false
+    Box(orient = OrientY):
+      for it in 0 ..&lt; 3:
+        ModelButton:
+          text = &quot;Menu Entry &quot; &amp; $it
+</code></pre>
+<h2>DialogButton</h2>
+<pre><code class="language-nim">renderable DialogButton
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li><code>text: string</code></li>
+<li><code>response: DialogResponse</code></li>
+<li><code>style: set[ButtonStyle]</code> Applies special styling to the button. May be one of <code>ButtonSuggested</code>, <code>ButtonDestructive</code>, <code>ButtonFlat</code>, <code>ButtonPill</code> or <code>ButtonCircular</code>. Consult the <a href="https://developer.gnome.org/hig/patterns/controls/buttons.html?highlight=button#button-styles">GTK4 documentation</a> for guidance on what to use.</li>
+</ul>
+<h6>Setters</h6>
+<ul>
+<li><code>res: DialogResponseKind</code></li>
+</ul>
+<h2>Dialog</h2>
+<pre><code class="language-nim">renderable Dialog of Window
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#Window">Window</a></li>
+<li><code>buttons: seq[DialogButton]</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li>All adders from <a href="#Window">Window</a></li>
+<li><code>addButton</code></li>
+</ul>
+<h2>BuiltinDialog</h2>
+<pre><code class="language-nim">renderable BuiltinDialog
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li><code>title: string</code></li>
+<li><code>buttons: seq[DialogButton]</code></li>
+</ul>
+<h6>Adders</h6>
+<ul>
+<li><code>addButton</code></li>
+</ul>
+<h2>FileChooserDialog</h2>
+<pre><code class="language-nim">renderable FileChooserDialog of BuiltinDialog
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BuiltinDialog">BuiltinDialog</a></li>
+<li><code>action: FileChooserAction</code></li>
+<li><code>filename: string</code></li>
+</ul>
+<h2>ColorChooserDialog</h2>
+<pre><code class="language-nim">renderable ColorChooserDialog of BuiltinDialog
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BuiltinDialog">BuiltinDialog</a></li>
+<li><code>color: tuple[r, g, b, a: float] = (0.0, 0.0, 0.0, 1.0)</code></li>
+<li><code>useAlpha: bool = false</code></li>
+</ul>
+<h2>MessageDialog</h2>
+<pre><code class="language-nim">renderable MessageDialog of BuiltinDialog
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BuiltinDialog">BuiltinDialog</a></li>
+<li><code>message: string</code></li>
+</ul>
+<h2>AboutDialog</h2>
+<pre><code class="language-nim">renderable AboutDialog of BaseWidget
+</code></pre>
+<h6>Fields</h6>
+<ul>
+<li>All fields from <a href="#BaseWidget">BaseWidget</a></li>
+<li><code>programName: string</code></li>
+<li><code>logo: string</code></li>
+<li><code>copyright: string</code></li>
+<li><code>version: string</code></li>
+<li><code>license: string</code></li>
+<li><code>credits: seq[(string, seq[string])]</code></li>
+</ul>
+<h6>Example</h6>
+<pre><code class="language-nim">AboutDialog:
+  programName = &quot;My Application&quot;
+  logo = &quot;applications-graphics&quot;
+  version = &quot;1.0.0&quot;
+  credits = @{&quot;Code&quot;: @[&quot;Erika Mustermann&quot;, &quot;Max Mustermann&quot;],
+              &quot;Art&quot;: @[&quot;Max Mustermann&quot;]}
+</code></pre>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../book/reference.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../docs/widgets_adwaita.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../book/reference.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../docs/widgets_adwaita.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+
+
+
+        <script src="../assets/js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../assets/js/book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

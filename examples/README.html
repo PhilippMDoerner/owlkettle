@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html lang="en-us" class="sidebar-visible no-js Rust">
+    <head>
+        <!-- Book generated using nimibook -->
+        <meta charset="UTF-8">
+        <title>General Examples - Owlkettle</title>
+
+        <!-- Custom HTML head -->
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Freshly brewed user interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🐳</text></svg>">
+        <link rel="stylesheet" href="../assets/css/variables.css">
+        <link rel="stylesheet" href="../assets/css/general.css">
+        <link rel="stylesheet" href="../assets/css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../assets/FontAwesome/css/font-awesome.min.css">
+
+        <!-- Highlight.js Stylesheets - I could use nimib native highlight but let's keep it for styling... -->
+        <link rel="stylesheet" href="../assets/css/highlight.css">
+        <link rel="stylesheet" href="../assets/css/tomorrow-night.css">
+        <link rel="stylesheet" href="../assets/css/ayu-highlight.css">
+
+        <!-- Custom theme stylesheets - why the "../"? -->
+
+
+        
+
+            <script src="https://cdn.jsdelivr.net/gh/pietroppeter/nimib@main/assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+        
+        <!-- plausible analytics (new in nimibook) -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "..//assets";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "Rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('Rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                                <ol class="chapter">
+                <li class="chapter-item expanded ">
+                  <a href="../README.html" tabindex="0">
+                    <strong aria-hidden="true">1.</strong> Welcome to Owlkettle!
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/tutorial.html" tabindex="0">
+                    <strong aria-hidden="true">2.</strong> Tutorial
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../examples/README.html" class="active" tabindex="0">
+                    <strong aria-hidden="true">3.</strong> General Examples
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/recommended_tools.html" tabindex="0">
+                    <strong aria-hidden="true">4.</strong> Tooling
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/reference.html" tabindex="0">
+                    <strong aria-hidden="true">5.</strong> Reference
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets.html" tabindex="0">
+                    <strong aria-hidden="true">5.1.</strong> General Widget Reference
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets_adwaita.html" tabindex="0">
+                    <strong aria-hidden="true">5.2.</strong> Adwaita Widget Reference
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets_dataentries.html" tabindex="0">
+                    <strong aria-hidden="true">5.3.</strong> DataEntry Widget Reference
+                  </a></li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals.html" tabindex="0">
+                    <strong aria-hidden="true">6.</strong> Internals
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/custom_widgets.html" tabindex="0">
+                    <strong aria-hidden="true">6.1.</strong> Custom Widgets
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.</strong> Adders
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/one_adder.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.1.</strong> One Adder
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/adders_with_properties.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.2.</strong> Adders With Properties
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/multiple_adders.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.3.</strong> Multiple Adders
+                  </a></li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.</strong> Hooks
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.1.</strong> Build Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/before_build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.2.</strong> BeforeBuild Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/after_build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.3.</strong> AfterBuild Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/event_hooks.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.4.</strong> Event Hooks
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/update_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.5.</strong> Update Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/property_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.6.</strong> Property Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/read_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.7.</strong> Read Hook
+                  </a></li>
+                  </ol>
+                  </li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../CONTRIBUTING.html" tabindex="0">
+                    <strong aria-hidden="true">7.</strong> Contributing
+                  </a></li>
+                </ol>
+<!-- I could use also an unescaped context value -->
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title">Owlkettle</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/can-lehmann/owlkettle" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1>Owlkettle Examples</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/counter.nim">Counter</a></td>
+    <td><img alt="Counter Application" src="../docs/assets/examples/counter.png" width="228px"></td>
+  </tr>
+</table>
+<h2>Applications</h2>
+<p>The <code>apps</code> directory contains full application examples.</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/apps/app_launcher.nim">App Launcher</a></td>
+    <td>
+      No Image
+      <!--
+      <img alt="App Launcher" src="../docs/assets/examples/app-launcher.png" width="228px">
+      -->
+    </td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/apps/temp_converter.nim">Temperature Converter</a></td>
+    <td><img alt="Temperature Converter" src="../docs/assets/examples/temp_converter.png" width="628px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/apps/todo.nim">Todo</a></td>
+    <td><img alt="Todo Application" src="../docs/assets/examples/todo.png" width="428px"></td>
+  </tr>
+</table>
+<h2>Dialogs</h2>
+<p>The <code>dialogs</code> directory contains examples of how to use the different built-in dialogs.</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/dialogs/about_dialog.nim">About Dialog</a></td>
+    <td>
+      No Image
+      <!--
+      <img alt="About Dialog" src="../docs/assets/examples/about_dialog.png" width="228px">
+      -->
+    </td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/dialogs/custom_dialog.nim">Custom Dialog</a></td>
+    <td><img alt="Custom Dialog" src="../docs/assets/examples/custom_dialog.png" width="348px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/dialogs/file_dialog.nim">File Dialog</a></td>
+    <td><img alt="File Dialog" src="../docs/assets/examples/file_dialog.png" width="988px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/dialogs/message_dialog.nim">Message Dialog</a></td>
+    <td><img alt="Message Dialog" src="../docs/assets/examples/message_dialog.png" width="167px"></td>
+  </tr>
+</table>
+<h2>Miscellaneous</h2>
+<p>The <code>misc</code> directory contains miscellaneous examples.</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/misc/cairo_path.nim">Cairo Path</a></td>
+    <td><img alt="Cairo Path" src="../docs/assets/examples/cairo_path.png" width="968px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/misc/clipboard.nim">Clipboard</a></td>
+    <td><img alt="Clipboard" src="../docs/assets/examples/clipboard.png" width="328px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/misc/css.nim">CSS</a></td>
+    <td><img alt="CSS" src="../docs/assets/examples/css.png" width="428px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/misc/notification.nim">Notification</a></td>
+    <td>
+      <img alt="Notification" src="../docs/assets/examples/notification.png" width="508.5px">
+      <img alt="Notification Dialog" src="../docs/assets/examples/notification-dialog.png" width="428px">
+    </td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/misc/threading.nim">Threading</a></td>
+    <td>No Image</td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/misc/timeout_event.nim">Timeout Event</a></td>
+    <td>No Image</td>
+  </tr>
+</table>
+<h2>Widgets</h2>
+<p>The <code>widgets</code> directory contains examples for how to use different widgets.</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/context_menu.nim">Context Menu</a></td>
+    <td><img alt="Context Menu" src="../docs/assets/examples/context_menu.png" width="328px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/drawing_area.nim">Drawing Area</a></td>
+    <td><img alt="Drawing Area" src="../docs/assets/examples/drawing_area.png" width="671px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/drop_down.nim">Drop Down</a></td>
+    <td><img alt="Drop Down" src="../docs/assets/examples/drop_down.png" width="378px"></td>
+  </tr>
+  <tr>
+    <td><a href="widgets/picture.nim">Picture</a></td>
+    <td><img alt="Picture" src="/docs/assets/examples/picture.png" width="870px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/popover_menu.nim">Popover Menu</a></td>
+    <td><img alt="Popover Menu" src="../docs/assets/examples/popover_menu.png" width="328px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/text_view.nim">Text View</a></td>
+    <td><img alt="Text View" src="../docs/assets/examples/text_view.png" width="757px"></td>
+  </tr>
+</table>
+<h3>adwaita</h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/adw/combo_row.nim">Combo Row</a></td>
+    <td><img alt="Combo Row" src="../docs/assets/examples/combo_row.png" width="684px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/adw/expander_row.nim">Expander Row</a></td>
+    <td><img alt="Expander Row" src="../docs/assets/examples/expander_row.png" width="803px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/adw/flap.nim">Flap</a></td>
+    <td><img alt="Flap" src="../docs/assets/examples/flap.png" width="622px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/adw/preferences_group.nim">Preferences Group</a></td>
+    <td><img alt="Preferences Group" src="../docs/assets/examples/preferences_group.png" width="721px"></td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/adw/window_title.nim">Window Title</a></td>
+    <td><img alt="Window Title" src="../docs/assets/examples/window_title.png" width="288px"></td>
+  </tr>
+</table>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../docs/tutorial.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../docs/recommended_tools.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../docs/tutorial.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../docs/recommended_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+
+
+
+        <script src="../assets/js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../assets/js/book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

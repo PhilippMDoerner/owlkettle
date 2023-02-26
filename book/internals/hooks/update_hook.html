@@ -1,0 +1,360 @@
+<!DOCTYPE HTML>
+<html lang="en-us" class="sidebar-visible no-js Rust">
+    <head>
+        <!-- Book generated using nimibook -->
+        <meta charset="UTF-8">
+        <title>Update Hook - Owlkettle</title>
+
+        <!-- Custom HTML head -->
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Freshly brewed user interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🐳</text></svg>">
+        <link rel="stylesheet" href="../../../assets/css/variables.css">
+        <link rel="stylesheet" href="../../../assets/css/general.css">
+        <link rel="stylesheet" href="../../../assets/css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../assets/FontAwesome/css/font-awesome.min.css">
+
+        <!-- Highlight.js Stylesheets - I could use nimib native highlight but let's keep it for styling... -->
+        <link rel="stylesheet" href="../../../assets/css/highlight.css">
+        <link rel="stylesheet" href="../../../assets/css/tomorrow-night.css">
+        <link rel="stylesheet" href="../../../assets/css/ayu-highlight.css">
+
+        <!-- Custom theme stylesheets - why the "../"? -->
+
+
+        
+
+            <script src="https://cdn.jsdelivr.net/gh/pietroppeter/nimib@main/assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+        
+        <!-- plausible analytics (new in nimibook) -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../..//assets";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "Rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('Rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                                <ol class="chapter">
+                <li class="chapter-item expanded ">
+                  <a href="../../../README.html" tabindex="0">
+                    <strong aria-hidden="true">1.</strong> Welcome to Owlkettle!
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../docs/tutorial.html" tabindex="0">
+                    <strong aria-hidden="true">2.</strong> Tutorial
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../examples/README.html" tabindex="0">
+                    <strong aria-hidden="true">3.</strong> General Examples
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../docs/recommended_tools.html" tabindex="0">
+                    <strong aria-hidden="true">4.</strong> Tooling
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/reference.html" tabindex="0">
+                    <strong aria-hidden="true">5.</strong> Reference
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../../../docs/widgets.html" tabindex="0">
+                    <strong aria-hidden="true">5.1.</strong> General Widget Reference
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../docs/widgets_adwaita.html" tabindex="0">
+                    <strong aria-hidden="true">5.2.</strong> Adwaita Widget Reference
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../docs/widgets_dataentries.html" tabindex="0">
+                    <strong aria-hidden="true">5.3.</strong> DataEntry Widget Reference
+                  </a></li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals.html" tabindex="0">
+                    <strong aria-hidden="true">6.</strong> Internals
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/custom_widgets.html" tabindex="0">
+                    <strong aria-hidden="true">6.1.</strong> Custom Widgets
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/adders.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.</strong> Adders
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/adders/one_adder.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.1.</strong> One Adder
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/adders/adders_with_properties.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.2.</strong> Adders With Properties
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/adders/multiple_adders.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.3.</strong> Multiple Adders
+                  </a></li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/hooks.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.</strong> Hooks
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/hooks/build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.1.</strong> Build Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/hooks/before_build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.2.</strong> BeforeBuild Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/hooks/after_build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.3.</strong> AfterBuild Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/hooks/event_hooks.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.4.</strong> Event Hooks
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/hooks/update_hook.html" class="active" tabindex="0">
+                    <strong aria-hidden="true">6.3.5.</strong> Update Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/hooks/property_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.6.</strong> Property Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../book/internals/hooks/read_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.7.</strong> Read Hook
+                  </a></li>
+                  </ol>
+                  </li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../../../CONTRIBUTING.html" tabindex="0">
+                    <strong aria-hidden="true">7.</strong> Contributing
+                  </a></li>
+                </ol>
+<!-- I could use also an unescaped context value -->
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title">Owlkettle</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/can-lehmann/owlkettle" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><strong>Update Hook</strong></h2>
+<p><code>update</code> hooks runs every time the <code>Widget</code> updates the <code>WidgetState</code>. In other words, whenever the application is redrawn, which occurs every time an event is thrown and every time the <code>WidgetState.redraw</code> method is called.</p>
+<h3><strong>For Widgets</strong></h3>
+<p>On widgets the <code>update</code> hook is for cases where you want to update fields, but using an <code>update</code> hook on a single field is not a clean solution, e.g. where fields share an expensive operation that you do not want to repeat unnecessarily.
+For simpler cases, consider the <code>property</code>-hook (see the <code>property</code>-hook for more) or an <code>update</code> hook on that specific field.</p>
+<p>Here an example demonstrating how the <code>update</code>-hook on a widget can be used:</p>
+                        <pre><code class="nohighlight hljs nim"><span class="hljs-keyword">import</span> owlkettle
+
+<span class="hljs-comment">## The custom widget</span>
+viewable <span class="hljs-type">MyViewable</span>:
+  text: <span class="hljs-built_in">string</span>
+
+  hooks:
+    update:
+      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Original Value: &quot;</span>, state.text
+      state.text = state.text &amp; <span class="hljs-string">&quot; - Addition&quot;</span>
+      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;New Value     : &quot;</span>, state.text
+
+<span class="hljs-keyword">method</span> view(state: <span class="hljs-type">MyViewableState</span>): <span class="hljs-type">Widget</span> =
+  gui:
+    <span class="hljs-type">Button</span>(text = state.text):
+      <span class="hljs-keyword">proc</span> clicked() =
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Event triggering update&quot;</span>
+
+<span class="hljs-comment">## The App</span>
+viewable <span class="hljs-type">App</span>:
+  <span class="hljs-keyword">discard</span>
+
+<span class="hljs-keyword">method</span> view(app: <span class="hljs-type">AppState</span>): <span class="hljs-type">Widget</span> =
+  <span class="hljs-literal">result</span> = gui:
+    <span class="hljs-type">Window</span>:
+      <span class="hljs-type">MyViewable</span>(text = <span class="hljs-string">&quot;Defined by App&quot;</span>)
+
+<span class="hljs-keyword">when</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">defined</span>(owlkettleNimiDocs):
+  brew(gui(<span class="hljs-type">App</span>()))</code></pre>
+                        <h3><strong>For Fields</strong></h3>
+<p>Owlkettle provides default <code>update</code> hooks for every field.
+<code>update</code> hooks are useful if you need simple custom behaviour, such as modifying the input slightly before updating a field with it.
+It is their responsibility to transfer data from <code>Widget</code> to their field in <code>WidgetState</code>.</p>
+<p>Here an example for how an <code>update</code> hook on a field can be used:</p>
+                        <pre><code class="nohighlight hljs nim"><span class="hljs-keyword">import</span> owlkettle
+
+<span class="hljs-comment">## The custom widget</span>
+viewable <span class="hljs-type">MyViewable2</span>:
+  text: <span class="hljs-built_in">string</span>
+
+  hooks text:
+    update:
+      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Received via Widget:    &quot;</span>, widget.valText
+      <span class="hljs-keyword">if</span> widget.hasText:
+        state.text = widget.valText &amp; <span class="hljs-string">&quot; update hook addition&quot;</span>
+      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Applied to WidgetState: &quot;</span>, state.text
+
+<span class="hljs-keyword">method</span> view(state: <span class="hljs-type">MyViewable2State</span>): <span class="hljs-type">Widget</span> =
+  gui:
+    <span class="hljs-type">Button</span>(text = state.text):
+      <span class="hljs-keyword">proc</span> clicked() =
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;</span><span class="hljs-meta">\n</span><span class="hljs-string">Event triggering update&quot;</span>
+
+<span class="hljs-comment">## The App</span>
+viewable <span class="hljs-type">App2</span>:
+  <span class="hljs-keyword">discard</span>
+
+<span class="hljs-keyword">method</span> view(app: <span class="hljs-type">App2State</span>): <span class="hljs-type">Widget</span> =
+  <span class="hljs-literal">result</span> = gui:
+    <span class="hljs-type">Window</span>:
+      <span class="hljs-type">MyViewable2</span>(text = <span class="hljs-string">&quot;Example&quot;</span>)
+
+<span class="hljs-keyword">when</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">defined</span>(owlkettleNimiDocs):
+  brew(gui(<span class="hljs-type">App2</span>()))</code></pre>
+                        <p>We checked if the <code>Widget.hasText</code> value is true before assigning values to that field. This check is useful, since if the field is not set in the <code>Widget</code>, its value should not be propagated to the <code>WidgetState</code>.</p>
+<p>Note that this hook is not run initially, so when the widget is first being built any changes in made in the <code>update</code> hook are not applied yet. Look at the <code>build</code> hook if you need that behaviour, or <code>property</code> hook if you need both.</p>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../book/internals/hooks/event_hooks.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../../book/internals/hooks/property_hook.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../book/internals/hooks/event_hooks.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../../book/internals/hooks/property_hook.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+
+
+
+        <script src="../../../assets/js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../assets/js/book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

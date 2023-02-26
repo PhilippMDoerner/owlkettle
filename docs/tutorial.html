@@ -1,0 +1,418 @@
+<!DOCTYPE HTML>
+<html lang="en-us" class="sidebar-visible no-js Rust">
+    <head>
+        <!-- Book generated using nimibook -->
+        <meta charset="UTF-8">
+        <title>Tutorial - Owlkettle</title>
+
+        <!-- Custom HTML head -->
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Freshly brewed user interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🐳</text></svg>">
+        <link rel="stylesheet" href="../assets/css/variables.css">
+        <link rel="stylesheet" href="../assets/css/general.css">
+        <link rel="stylesheet" href="../assets/css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../assets/FontAwesome/css/font-awesome.min.css">
+
+        <!-- Highlight.js Stylesheets - I could use nimib native highlight but let's keep it for styling... -->
+        <link rel="stylesheet" href="../assets/css/highlight.css">
+        <link rel="stylesheet" href="../assets/css/tomorrow-night.css">
+        <link rel="stylesheet" href="../assets/css/ayu-highlight.css">
+
+        <!-- Custom theme stylesheets - why the "../"? -->
+
+
+        
+
+            <script src="https://cdn.jsdelivr.net/gh/pietroppeter/nimib@main/assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+        
+        <!-- plausible analytics (new in nimibook) -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "..//assets";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "Rust";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('Rust')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                                <ol class="chapter">
+                <li class="chapter-item expanded ">
+                  <a href="../README.html" tabindex="0">
+                    <strong aria-hidden="true">1.</strong> Welcome to Owlkettle!
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/tutorial.html" class="active" tabindex="0">
+                    <strong aria-hidden="true">2.</strong> Tutorial
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../examples/README.html" tabindex="0">
+                    <strong aria-hidden="true">3.</strong> General Examples
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/recommended_tools.html" tabindex="0">
+                    <strong aria-hidden="true">4.</strong> Tooling
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/reference.html" tabindex="0">
+                    <strong aria-hidden="true">5.</strong> Reference
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets.html" tabindex="0">
+                    <strong aria-hidden="true">5.1.</strong> General Widget Reference
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets_adwaita.html" tabindex="0">
+                    <strong aria-hidden="true">5.2.</strong> Adwaita Widget Reference
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../docs/widgets_dataentries.html" tabindex="0">
+                    <strong aria-hidden="true">5.3.</strong> DataEntry Widget Reference
+                  </a></li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals.html" tabindex="0">
+                    <strong aria-hidden="true">6.</strong> Internals
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/custom_widgets.html" tabindex="0">
+                    <strong aria-hidden="true">6.1.</strong> Custom Widgets
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.</strong> Adders
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/one_adder.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.1.</strong> One Adder
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/adders_with_properties.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.2.</strong> Adders With Properties
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/adders/multiple_adders.html" tabindex="0">
+                    <strong aria-hidden="true">6.2.3.</strong> Multiple Adders
+                  </a></li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.</strong> Hooks
+                  </a></li>
+                  <li>
+                  <ol class="section">
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.1.</strong> Build Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/before_build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.2.</strong> BeforeBuild Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/after_build_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.3.</strong> AfterBuild Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/event_hooks.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.4.</strong> Event Hooks
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/update_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.5.</strong> Update Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/property_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.6.</strong> Property Hook
+                  </a></li>
+                <li class="chapter-item expanded ">
+                  <a href="../book/internals/hooks/read_hook.html" tabindex="0">
+                    <strong aria-hidden="true">6.3.7.</strong> Read Hook
+                  </a></li>
+                  </ol>
+                  </li>
+                  </ol>
+                  </li>
+                <li class="chapter-item expanded ">
+                  <a href="../CONTRIBUTING.html" tabindex="0">
+                    <strong aria-hidden="true">7.</strong> Contributing
+                  </a></li>
+                </ol>
+<!-- I could use also an unescaped context value -->
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title">Owlkettle</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/can-lehmann/owlkettle" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1>Tutorial</h1>
+<p>Let's build a simple Todo app using owlkettle.
+The source code for this example can be found <a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/apps/todo.nim">here</a>.
+Here is what it will look like when it is done.</p>
+<img alt="Todo Application" src="assets/tutorial/todo_final.png" width="428px">
+<p>First we model the application state.
+In this case we need to store a list of todo items (<code>todos</code>) where each item has a text and can be marked as done.
+We also store the current value of the entry.</p>
+<pre><code class="language-nim">type TodoItem = object
+  text: string
+  done: bool
+
+viewable App:
+  todos: seq[TodoItem]
+  new_item: string
+</code></pre>
+<p>Next we need to define the <code>view</code> method of the application.
+For now, an empty window with the title &quot;Todo&quot; is created.</p>
+<pre><code class="language-nim">method view(app: AppState): Widget =
+  result = gui:
+    Window:
+      title = &quot;Todo&quot;
+</code></pre>
+<p>To make development easier, we initialize the app with two placeholder todo items.</p>
+<pre><code class="language-nim">brew(gui(App(todos = @[
+  TodoItem(text: &quot;First Item&quot;, done: true),
+  TodoItem(text: &quot;Second Item&quot;)
+])))
+</code></pre>
+<p>Here is what our application looks like currently:</p>
+<img alt="An empty window" src="assets/tutorial/todo_1.png" width="428px">
+<p>Let's show the placeholder todo items in a list.
+We use a <code>ListBox</code> which contains a <code>Label</code> for each item.
+A <code>ScrolledWindow</code> is used to add a scrollbar to the <code>ListBox</code>.</p>
+<p>When defining GUIs, we can use structured control flow constructs such as <code>for</code> loops and <code>if</code> statements.
+In this case a <code>for</code> loop is used to create a label for each item.
+When <code>app.todos</code> changes, the GUI is updated automatically.</p>
+<pre><code class="language-nim">Window:
+  title = &quot;Todo&quot;
+  
+  Box(orient = OrientY, spacing = 6, margin = 12):
+    Frame:
+      ScrolledWindow:
+        ListBox:
+          selection_mode = SelectionNone
+          for it, todo in app.todos:
+            Label:
+              text = todo.text
+              x_align = 0
+</code></pre>
+<img alt="The application displays the placeholder items" src="assets/tutorial/todo_2.png" width="428px">
+<p>In order to allow the user to mark items as done, we add a <code>CheckButton</code> next to each label.
+The <code>changed</code> event handler is called when the user toggles the <code>CheckButton</code>.
+In this case, we update the current state of the <code>TodoItem</code>.</p>
+<pre><code class="language-diff"> ...
+ ListBox:
+   selection_mode = SelectionNone
+   for it, todo in app.todos:
++    Box:
++      spacing = 6
++      CheckButton {.expand: false.}:
++        state = todo.done
++        proc changed(state: bool) =
++          app.todos[it].done = state
+       Label:
+         text = todo.text
+         x_align = 0
+</code></pre>
+<img alt="Items can be marked as done" src="assets/tutorial/todo_3.png" width="428px">
+<p>Next, we add an entry which allows the user to add new items to the todo list.
+The <code>expand</code> attribute of the <code>Box</code> which contains the entry and button is set to <code>false</code> in order to prevent the <code>Box</code> from growing to take up remaining space in the parent widget.</p>
+<pre><code class="language-nim">Window:
+  ...
+  Box(orient = OrientY, spacing = 6, margin = 12):
+    Box(orient = OrientX, spacing = 6) {.expand: false.}:
+      Entry:
+        text = app.new_item
+        proc changed(new_item: string) =
+          app.new_item = new_item
+      Button {.expand: false.}:
+        icon = &quot;list-add-symbolic&quot;
+        style = {ButtonSuggested}
+        proc clicked() =
+          app.todos.add(TodoItem(text: app.new_item))
+          app.new_item = &quot;&quot;
+    
+    Frame:
+      ScrolledWindow:
+        ...
+</code></pre>
+<img alt="Todo application with an entry to add new items" src="assets/tutorial/todo_4.png" width="428px">
+<p>Finally we add a <code>HeaderBar</code> and a menu which contains a button used to delete all checked items.</p>
+<pre><code class="language-nim">Window:
+  ...
+  HeaderBar {.add_titlebar.}:  
+    MenuButton {.add_right.}:
+      icon = &quot;open-menu-symbolic&quot;
+      Popover:
+        Box(orient=OrientY, spacing=6, margin=6):
+          Button:
+            icon = &quot;user-trash-symbolic&quot;
+            style = {ButtonDestructive}
+            proc clicked() =
+              app.todos = app.todos.filter_it(not it.done)
+  Box:
+    ...
+</code></pre>
+<p>Clicking on the <code>MenuButton</code> opens the menu.</p>
+<img alt="Todo Application" src="assets/tutorial/todo_5.png" width="428px">
+<p>The source code for this example can be found <a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/apps/todo.nim">here</a>.</p>
+<h2>Next Steps</h2>
+<ul>
+<li>Improve the Todo App
+<ul>
+<li>Add an option to hide completed items</li>
+<li>Replace the &quot;Delete&quot; button with a <code>ModelButton</code> and create a simple menu structure.
+Check out <a href="https://github.com/can-lehmann/owlkettle/blob/main/examples/widgets/popover_menu.nim">the popover_menu example</a> for how to create a simple menu structure.</li>
+<li>Use <code>owlkettle/adw</code> to convert the Todo app to a libadwaita application.</li>
+<li>Save and load todos from a file</li>
+</ul>
+</li>
+<li>Check out the other <a href="https://github.com/can-lehmann/owlkettle/blob/main/examples">examples</a></li>
+<li>Start working on your own projects! You might find the following links useful:
+<ul>
+<li>Here is a list of <a href="https://github.com/can-lehmann/owlkettle/blob/main/examples">examples</a></li>
+<li><a href="https://github.com/can-lehmann/owlkettle/blob/main/docs/widgets.md">widgets.md</a> is a reference of all owlkettle widgets</li>
+<li><a href="https://github.com/can-lehmann/owlkettle/blob/main/docs/widgets_adwaita.md">widgets_adwaita.md</a> is a reference of all libadwaita widgets supported by owlkettle</li>
+</ul>
+</li>
+</ul>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../README.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../examples/README.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../README.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../examples/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+
+
+
+        <script src="../assets/js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../assets/js/book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
