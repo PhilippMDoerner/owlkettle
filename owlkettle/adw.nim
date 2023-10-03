@@ -59,6 +59,10 @@ type
     FlapTransitionUnder
     FlapTransitionSlide
 
+  SpinButtonUpdatePolicy* = enum
+    SpinButtonUpdateAlways
+    SpinButtonUpdateIfValid
+
 {.push importc, cdecl.}
 # Adw
 proc adw_init()
@@ -149,6 +153,20 @@ proc adw_split_button_new(): GtkWidget
 proc adw_split_button_set_child(button, child: GtkWidget)
 proc adw_split_button_set_popover(button, child: GtkWidget)
 
+when AdwVersion >= (1, 4):
+  proc adw_spin_row_new(adjustment: GtkAdjustment, climb_rate: cdouble, digits: cuint): GtkWidget
+  proc adw_spin_row_configure(self: GtkWidget, adjustment: GtkAdjustment, climb_rate: cdouble, digits: cuint)
+  proc adw_spin_row_set_adjustment(self: GtkWidget, adjustment: GtkAdjustment)
+  proc adw_spin_row_set_climb_rate(self: GtkWidget, climb_rate: cdouble)
+  proc adw_spin_row_set_digits(self: GtkWidget, digits: cuint)
+  proc adw_spin_row_set_numeric(self: GtkWidget, numeric: cbool)
+  proc adw_spin_row_set_range(self: GtkWidget, min: cdouble, max: cdouble)
+  proc adw_spin_row_set_snap_to_ticks(self: GtkWidget, snap_to_ticks: cbool)
+  proc adw_spin_row_set_update_policy(self: GtkWidget, policy: SpinButtonUpdatePolicy)
+  proc adw_spin_row_set_value(self: GtkWidget, value: cdouble)
+  proc adw_spin_row_set_wrap(self: GtkWidget, wrap: cbool)
+  proc adw_spin_row_update(self: GtkWidget)
+  proc adw_spin_row_get_value(self: GtkWidget): cdouble
 when AdwVersion >= (1, 2):
   # Adw.AboutWindow
   proc adw_about_window_new(): GtkWidget
@@ -690,6 +708,84 @@ proc `valSwipe=`*(flap: Flap, swipe: bool) =
   flap.valSwipeToOpen = swipe
   flap.valSwipeToClose = swipe
 
+when AdwVersion >= (1, 4):
+  renderable SpinRow of ActionRow:
+    climbRate: float = 0.0
+    digits: uint = 0
+    numeric: bool = false
+    min: float = 0.0
+    max: float = 100.0
+    snapToTicks: bool = false
+    updatePolicy: SpinButtonUpdatePolicy = SpinButtonUpdateAlways
+    value: float = 0.0
+    wrap: bool = false
+    
+    proc input(newValue: float)
+    
+    hooks:
+      beforeBuild:
+        let climbRate: float = if widget.hasClimbRate: widget.valClimbRate else: 0.0
+        let digits: uint = if widget.hasDigits: widget.valDigits else: 0.uint
+        state.internalWidget = adw_spin_row_new(GtkAdjustment(nil), climbRate.cdouble, digits.cuint)
+
+      connectEvents:
+        proc inputEventCallback(
+          widget: GtkWidget,
+          newValue: cdouble,
+          data: ptr EventObj[proc(newValue: float)]
+        ): cint {.cdecl.} =
+          let x = data[].widget
+          echo data == nil
+          echo data[].widget == nil
+          echo SpinRowState(data[].widget) == nil ## Line 740, this line segfaults according to the stacktrace
+          SpinRowState(data[].widget).value = newValue.float
+          data[].callback(newValue)
+          data[].redraw()
+          
+          result = true.cint
+        
+        state.connect(state.input, "input", inputEventCallback) 
+        # state.connect(state.output, "output", eventCallback)
+        # state.connect(state.wrapped, "wrapped", eventCallback)
+        
+    hooks climbRate:
+      property:
+        adw_spin_row_set_climb_rate(state.internalWidget, state.climbRate.cdouble)
+    
+    hooks digits:
+      property:
+        adw_spin_row_set_digits(state.internalWidget, state.digits.cuint)
+    
+    hooks numeric:
+      property:
+        adw_spin_row_set_numeric(state.internalWidget, state.numeric.cbool)
+        
+    hooks min:
+      property:
+        adw_spin_row_set_range(state.internalWidget, state.min.cdouble, state.max.cdouble)
+
+    hooks max:
+      property:
+        adw_spin_row_set_range(state.internalWidget, state.min.cdouble, state.max.cdouble)
+    
+    hooks snapToTicks:
+      property:
+        adw_spin_row_set_snap_to_ticks(state.internalWidget, state.snapToTicks.cbool)
+        
+    hooks updatePolicy:
+      property:
+        adw_spin_row_set_update_policy(state.internalWidget, state.updatePolicy)
+        
+    hooks value:
+      property:  
+        adw_spin_row_set_value(state.internalWidget, state.value.cdouble)
+        
+    hooks wrap:
+      property:
+        adw_spin_row_set_wrap(state.internalWidget, state.wrap.cbool)
+
+  export SpinRow
+  
 renderable SplitButton of BaseWidget:
   child: Widget
   popover: Widget
