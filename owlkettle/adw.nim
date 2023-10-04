@@ -731,15 +731,15 @@ when AdwVersion >= (1, 4):
       connectEvents:
         proc inputEventCallback(
           widget: GtkWidget,
-          newValue: cdouble,
+          newValue: ptr cdouble,
           data: ptr EventObj[proc(newValue: float)]
         ): cint {.cdecl.} =
-          let x = data[].widget
-          echo data == nil
-          echo data[].widget == nil
-          echo SpinRowState(data[].widget) == nil ## Line 740, this line segfaults according to the stacktrace
-          SpinRowState(data[].widget).value = newValue.float
-          data[].callback(newValue)
+          echo "newValue unref'd ptr: ", newValue[].float
+          echo "Cast ptr: ", cast[int](newValue)
+          echo "currentValue from widget: ", adw_spin_row_get_value(widget).float
+          newValue[] = adw_spin_row_get_value(widget)
+          SpinRowState(data[].widget).value = newValue[].float
+          data[].callback(newValue[].float)
           data[].redraw()
           
           result = true.cint
