@@ -25,6 +25,7 @@
 when defined(nimPreviewSlimSystem):
   import std/assertions
 import gtk, widgetdef, widgets, mainloop, widgetutils
+import std/strutils
 
 when defined(owlkettleDocs) and isMainModule:
   echo "# Libadwaita Widgets\n\n"
@@ -167,6 +168,7 @@ when AdwVersion >= (1, 4):
   proc adw_spin_row_set_wrap(self: GtkWidget, wrap: cbool)
   proc adw_spin_row_update(self: GtkWidget)
   proc adw_spin_row_get_value(self: GtkWidget): cdouble
+  proc gtk_editable_get_text(self: GtkWidget): cstring
 when AdwVersion >= (1, 2):
   # Adw.AboutWindow
   proc adw_about_window_new(): GtkWidget
@@ -719,6 +721,7 @@ when AdwVersion >= (1, 4):
     updatePolicy: SpinButtonUpdatePolicy = SpinButtonUpdateAlways
     value: float = 0.0
     wrap: bool = false
+    parseInput: (proc(input: string): float) = parseFloat
     
     proc input(newValue: float)
     
@@ -731,16 +734,21 @@ when AdwVersion >= (1, 4):
       connectEvents:
         proc inputEventCallback(
           widget: GtkWidget,
-          newValue: ptr cdouble,
+          newValueHolder: ptr cdouble,
           data: ptr EventObj[proc(newValue: float)]
         ): cint {.cdecl.} =
-          echo "newValue unref'd ptr: ", newValue[].float
-          echo "Cast ptr: ", cast[int](newValue)
-          echo "currentValue from widget: ", adw_spin_row_get_value(widget).float
-          newValue[] = adw_spin_row_get_value(widget)
-          SpinRowState(data[].widget).value = newValue[].float
-          data[].callback(newValue[].float)
-          data[].redraw()
+          let state: SpinRowState = SpinRowState(data[].widget)
+          if state != nil:
+            let newValue: float = try:
+              state.parseInput($gtk_editable_get_text(widget))
+            except ValueError as e:
+              0.0
+            
+          
+            newValueHolder[] = newValue.cdouble
+            SpinRowState(data[].widget).value = newValue
+            data[].callback(newValue)
+            data[].redraw()
           
           result = true.cint
         
@@ -778,6 +786,7 @@ when AdwVersion >= (1, 4):
         
     hooks value:
       property:  
+        echo "Value was updated to: ", state.value
         adw_spin_row_set_value(state.internalWidget, state.value.cdouble)
         
     hooks wrap:

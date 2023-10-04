@@ -59,5 +59,6 @@ method view(app: AppState): Widget =
             
             proc input(newValue: float) =
               echo "New Value was input: ", newValue
-
+              app.value = newValue
+              
 adw.brew(gui(App()))
