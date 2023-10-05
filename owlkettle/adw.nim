@@ -169,6 +169,7 @@ when AdwVersion >= (1, 4):
   proc adw_spin_row_update(self: GtkWidget)
   proc adw_spin_row_get_value(self: GtkWidget): cdouble
   proc gtk_editable_get_text(self: GtkWidget): cstring
+
 when AdwVersion >= (1, 2):
   # Adw.AboutWindow
   proc adw_about_window_new(): GtkWidget
