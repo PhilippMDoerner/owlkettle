@@ -722,7 +722,7 @@ when AdwVersion >= (1, 4):
     updatePolicy: SpinButtonUpdatePolicy = SpinButtonUpdateAlways
     value: float = 0.0
     wrap: bool = false
-    parseInput: (proc(input: string): float) = parseFloat
+    parseToFloat: (proc(input: string): float) = parseFloat
     
     proc input(newValue: float)
     
@@ -737,21 +737,22 @@ when AdwVersion >= (1, 4):
           widget: GtkWidget,
           newValueHolder: ptr cdouble,
           data: ptr EventObj[proc(newValue: float)]
-        ): cint {.cdecl.} =
-          let state: SpinRowState = SpinRowState(data[].widget)
-          if state != nil:
-            let newValue: float = try:
-              state.parseInput($gtk_editable_get_text(widget))
-            except ValueError as e:
-              0.0
+        ): cint {.cdecl.} =          
+          var newValue: float
+          try:
+            newValue = SpinRowState(data[].widget).parseToFloat($gtk_editable_get_text(widget))
+          except ValueError as e:
+            return GtkInputError
             
+          echo "Input event callback: ", newValue
+          echo "\n"
           
-            newValueHolder[] = newValue.cdouble
-            SpinRowState(data[].widget).value = newValue
-            data[].callback(newValue)
-            data[].redraw()
+          newValueHolder[] = newValue.cdouble
+          SpinRowState(data[].widget).value = newValue
+          data[].callback(newValue)
+          data[].redraw()
           
-          result = true.cint
+          return true.cint
         
         state.connect(state.input, "input", inputEventCallback) 
         # state.connect(state.output, "output", eventCallback)

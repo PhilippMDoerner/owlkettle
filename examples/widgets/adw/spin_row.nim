@@ -35,30 +35,27 @@ viewable App:
   wrap: bool = false
   
 method view(app: AppState): Widget =
+  echo "Rerender"
   result = gui:
-    WindowSurface:
-      defaultSize = (800, 600)
-      Box(orient = OrientX):
-        insert app.toAutoForm()
-
-        Separator() {.expand: false.}
-
-        Box(orient = OrientY):
-          HeaderBar {.expand: false.}:
-            WindowTitle {.addTitle.}:
-              title = "SpinRow Example"
-              
-          SpinRow():
-            climbRate = app.climbRate
-            digits = app.digits
-            numeric = app.numeric
-            snapToTicks = app.snapToTicks
-            updatePolicy = app.updatePolicy
-            value = app.value
-            wrap = app.wrap
+    Window:
+      defaultSize = (400, 150)
+      Box(orient = OrientY):
+        HeaderBar {.expand: false.}:
+          WindowTitle {.addTitle.}:
+            title = "SpinRow Example"
+          insert(app.toAutoFormMenu()) {.addRight.}
             
-            proc input(newValue: float) =
-              echo "New Value was input: ", newValue
-              app.value = newValue
-              
+        SpinRow():
+          climbRate = app.climbRate
+          digits = app.digits
+          numeric = app.numeric
+          snapToTicks = app.snapToTicks
+          updatePolicy = app.updatePolicy
+          value = app.value
+          wrap = app.wrap
+          
+          proc input(newValue: float) =
+            echo "New Value was input: ", newValue
+            app.value = newValue
+
 adw.brew(gui(App()))
