@@ -733,8 +733,7 @@ when AdwVersion >= (1, 4):
 
       connectEvents:        
         proc changedCallback(widget: GtkWidget, data: ptr EventObj[proc (newValue: float)]) {.cdecl.} =
-          let newValue: float = adw_spin_row_get_value(widget).float
-          
+          let newValue: float = parseFloat($gtk_editable_get_text(widget))
           if not data[].widget.isNil():
             SpinRowState(data[].widget).value = newValue
             
