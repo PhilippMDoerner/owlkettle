@@ -733,9 +733,19 @@ when AdwVersion >= (1, 4):
 
       connectEvents:        
         proc changedCallback(widget: GtkWidget, data: ptr EventObj[proc (newValue: float)]) {.cdecl.} =
-          let newValue: float = parseFloat($gtk_editable_get_text(widget))
-          if not data[].widget.isNil():
-            SpinRowState(data[].widget).value = newValue
+          echo "Changed Signal"
+          var newValue: float
+          try:
+            let valueString = $gtk_editable_get_text(widget)
+            echo "The value: ", valueString
+            newValue = parseFloat(valueString)
+          except Exception as e:
+            echo "Borked: ", e.repr
+            newValue = 0.0
+          
+          echo data.isNil
+          echo data[].widget.isNil
+          SpinRowState(data[].widget).value = newValue
             
           data[].callback(newValue)
           data[].redraw()
