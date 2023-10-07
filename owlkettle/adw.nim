@@ -720,11 +720,10 @@ when AdwVersion >= (1, 4):
     max: float = 100.0
     snapToTicks: bool = false
     updatePolicy: SpinButtonUpdatePolicy = SpinButtonUpdateAlways
-    value: float = 0.0
+    value: float = 0
     wrap: bool = false
-    parseToFloat: (proc(input: string): float) = parseFloat
     
-    proc input(newValue: float)
+    proc changed(newValue: float)
     
     hooks:
       beforeBuild:
@@ -732,29 +731,18 @@ when AdwVersion >= (1, 4):
         let digits: uint = if widget.hasDigits: widget.valDigits else: 0.uint
         state.internalWidget = adw_spin_row_new(GtkAdjustment(nil), climbRate.cdouble, digits.cuint)
 
-      connectEvents:
-        proc inputEventCallback(
-          widget: GtkWidget,
-          newValueHolder: ptr cdouble,
-          data: ptr EventObj[proc(newValue: float)]
-        ): cint {.cdecl.} =          
-          var newValue: float
-          try:
-            newValue = SpinRowState(data[].widget).parseToFloat($gtk_editable_get_text(widget))
-          except ValueError as e:
-            return GtkInputError
-            
-          echo "Input event callback: ", newValue
-          echo "\n"
+      connectEvents:        
+        proc changedCallback(widget: GtkWidget, data: ptr EventObj[proc (newValue: float)]) {.cdecl.} =
+          let newValue: float = adw_spin_row_get_value(widget).float
           
-          newValueHolder[] = newValue.cdouble
-          SpinRowState(data[].widget).value = newValue
+          if not data[].widget.isNil():
+            SpinRowState(data[].widget).value = newValue
+            
           data[].callback(newValue)
           data[].redraw()
           
-          return true.cint
+        state.connect(state.changed, "changed", changedCallback)
         
-        state.connect(state.input, "input", inputEventCallback) 
         # state.connect(state.output, "output", eventCallback)
         # state.connect(state.wrapped, "wrapped", eventCallback)
         

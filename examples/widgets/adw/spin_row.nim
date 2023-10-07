@@ -24,15 +24,15 @@ import owlkettle, owlkettle/[dataentries, adw, autoform]
 import std/[options, sequtils]
 
 viewable App:
-  climbRate: float = 0.0
+  climbRate: float = 3.0
   digits: uint = 0
   numeric: bool = false
   min: float = 0.0
   max: float = 100.0
-  snapToTicks: bool = false
+  snapToTicks: bool = true
   updatePolicy: SpinButtonUpdatePolicy = SpinButtonUpdateAlways
-  value: float = 0.0
-  wrap: bool = false
+  value: float = 50.0
+  wrap: bool = true
   
 method view(app: AppState): Widget =
   echo "Rerender"
@@ -54,7 +54,7 @@ method view(app: AppState): Widget =
           value = app.value
           wrap = app.wrap
           
-          proc input(newValue: float) =
+          proc changed(newValue: float) =
             echo "New Value was input: ", newValue
             app.value = newValue
 
