@@ -36,7 +36,7 @@ method view(app: AppState): Widget =
 
       Box(orient = OrientY):      
         HeaderBar {.expand: false.}:
-          insert(app.toAutoFormMenu(ignoreFields = @["pixbuf", "loading"], sizeRequest = (400, 300))) {.addRight.}
+          insert(app.toAutoFormMenu(sizeRequest = (400, 300))) {.addRight.}
 
           MenuButton {.addRight.}:
             icon = "open-menu"
