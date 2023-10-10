@@ -732,7 +732,7 @@ when AdwVersion >= (1, 4):
         state.internalWidget = adw_spin_row_new(GtkAdjustment(nil), climbRate.cdouble, digits.cuint)
 
       connectEvents:        
-        proc changedCallback(widget: GtkWidget, data: ptr EventObj[proc (newValue: float)]) {.cdecl.} =
+        proc changedCallback(widget: GtkWidget, newValueHolder: ptr cdouble, data: ptr EventObj[proc (newValue: float)]) {.cdecl.} =
           echo "Changed Signal"
           var newValue: float
           try:
