@@ -3481,6 +3481,11 @@ renderable AboutDialog of BaseWidget:
         "Art": @["Max Mustermann"]
       }
 
+renderable PageSetupUnixDialog of BuiltinDialog:
+  hooks:
+    beforeBuild:
+      state.internalWidget = gtk_page_setup_unix_dialog_new(state.title.cstring, nil.GtkWidget)
+
 type ScalePosition* = enum
   ScaleLeft,
   ScaleRight,
@@ -3887,3 +3892,4 @@ export ProgressBar
 export EmojiChooser
 export CenterBox
 export ListView
+export PageSetupUnixDialog

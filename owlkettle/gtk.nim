@@ -130,6 +130,18 @@ type
     GTK_LEVEL_BAR_MODE_CONTINUOUS
     GTK_LEVEL_BAR_MODE_DISCRETE
   
+  GtkUnit* = enum
+    GTK_UNIT_NONE 
+    GTK_UNIT_POINTS 
+    GTK_UNIT_INCH 
+    GTK_UNIT_MM
+  
+  GtkPageOrientation* = enum
+    GTK_PAGE_ORIENTATION_PORTRAIT 
+    GTK_PAGE_ORIENTATION_LANDSCAPE 
+    GTK_PAGE_ORIENTATION_REVERSE_PORTRAIT 
+    GTK_PAGE_ORIENTATION_REVERSE_LANDSCAPE 
+    
   GtkTextIter* = object
     a, b: pointer
     c, d, e, f, g, h: cint
@@ -156,7 +168,12 @@ type
   GtkStringObject* = distinct pointer
   GtkListItemFactory* = distinct pointer
   GtkSelectionModel* = distinct pointer
-
+  GtkPageSetup* = distinct pointer
+  GVariant* = distinct pointer
+  GKeyFile* = distinct pointer
+  GtkPrintSettings* = distinct pointer
+  GtkPaperSize* = distinct pointer
+  
 proc isNil*(obj: GtkTextBuffer): bool {.borrow.}
 proc isNil*(obj: GtkTextTag): bool {.borrow.}
 proc isNil*(obj: GtkTextTagTable): bool {.borrow.}
@@ -1010,6 +1027,68 @@ proc gtk_about_dialog_set_program_name*(dialog: GtkWidget, text: cstring)
 proc gtk_about_dialog_set_logo_icon_name*(dialog: GtkWidget, name: cstring)
 proc gtk_about_dialog_set_license*(dialog: GtkWidget, text: cstring)
 proc gtk_about_dialog_add_credit_section*(dialog: GtkWidget, name: cstring, people: cstringArray)
+
+# Gtk.PageSetupUnixDialog
+proc gtk_page_setup_unix_dialog_new*(title: cstring, parent: GtkWidget): GtkWidget
+proc gtk_page_setup_unix_dialog_set_page_setup*(dialog: GtkWidget, page_setup: GtkPageSetup)
+proc gtk_page_setup_unix_dialog_set_print_settings*(dialog: GtkWidget, print_settings: GtkPrintSettings)
+
+# Gtk.PageSetup
+proc gtk_page_setup_new*(): GtkPageSetup
+proc gtk_page_setup_new_from_file*(file_name: cstring, error: GError): GtkPageSetup
+# proc gtk_page_setup_new_from_gvariant*(variant: GVariant): GtkPageSetup ## Not yet supported, but binding provided out of convenience
+# proc gtk_page_setup_new_from_key_file*(key_file: GKeyFile, group_name: cstring, error: GError): GtkPageSetup ## Not yet supported, but binding provided out of convenience
+proc gtk_page_setup_load_file*(setup: GtkPageSetup, file_name: cstring, error: GError): cbool
+proc gtk_page_setup_set_top_margin*(
+  setup: GtkPageSetup,
+  margin: cdouble,
+  unit: GtkUnit
+)
+proc gtk_page_setup_set_bottom_margin*(
+  setup: GtkPageSetup,
+  margin: cdouble,
+  unit: GtkUnit
+)
+proc gtk_page_setup_set_left_margin*(
+  setup: GtkPageSetup,
+  margin: cdouble,
+  unit: GtkUnit
+)
+proc gtk_page_setup_set_right_margin*(
+  setup: GtkPageSetup,
+  margin: cdouble,
+  unit: GtkUnit
+)
+proc gtk_page_setup_set_orientation*(setup: GtkPageSetup, orientation: GtkPageOrientation)
+proc gtk_page_setup_set_paper_size*(setup: GtkPageSetup, size: GtkPaperSize)
+proc gtk_page_setup_set_paper_size_and_default_margins*(setup: GtkPageSetup, size: GtkPaperSize)
+proc gtk_page_setup_to_file*(
+  setup: GtkPageSetup,
+  file_name: cstring,
+  error: GError
+): cbool
+proc gtk_page_setup_to_gvariant*(
+  setup: GtkPageSetup
+): GVariant
+proc gtk_page_setup_to_key_file*(
+  setup: GtkPageSetup,
+  key_file: GKeyFile,
+  group_name: cstring
+)
+
+# Gtk.PaperSize
+proc gtk_paper_size_new (name: cstring): GtkPaperSize
+proc gtk_paper_size_new_custom (name: cstring, display_name: cstring, width: cdouble, height: cdouble, unit: GtkUnit): GtkPaperSize
+proc gtk_paper_size_new_from_gvariant (variant: GVariant): GtkPaperSize
+proc gtk_paper_size_new_from_key_file (key_file: GKeyFile, group_name: cstring, error: GError): GtkPaperSize
+proc gtk_paper_size_get_default (): cstring
+proc gtk_paper_size_get_paper_sizes (include_custom: cbool): GList
+proc gtk_paper_size_free (size: GtkPaperSize)
+proc gtk_paper_size_set_size (size: GtkPaperSize, width: cdouble, height: cdouble, unit: GtkUnit)
+proc gtk_paper_size_to_gvariant (size: GtkPaperSize): GVariant
+proc gtk_paper_size_to_key_file (size: GtkPaperSize, key_file: GKeyFile, group_name: cstring)
+
+
 
 # Gtk.StringList
 proc gtk_string_list_new*(strings: cstringArray): GListModel
