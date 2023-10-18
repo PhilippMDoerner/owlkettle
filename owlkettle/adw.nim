@@ -769,7 +769,47 @@ when AdwVersion >= (1, 4) or defined(owlkettleDocs):
         raise newException(ValueError, "Unable to add multiple children to a NavigationPage.")
       widget.hasChild = true
       widget.valChild = child
-      
+  
+  renderable PreferencesWindow of WindowSurface:
+    toast: AdwToast
+    pages: seq[Widget]
+    searchEnabled: bool = false
+    visiblePage: Widget
+    visiblePageName: string
+    
+    hooks:
+      beforeBuild:
+        state.internalWidget = adw_preferences_window_new()
+    
+    hooks toast:
+      property:
+        adw_preferences_window_add_toast(state.internalWidget, state.toast)
+    
+    hooks pages:
+      (build, update):
+        state.updateChildren(
+          state.pages,
+          widget.valPages,
+          adw_preferences_window_add,
+          adw_preferences_window_remove
+        )
+    
+    hooks searchEnabled:
+      property:
+        adw_preferences_window_set_search_enabled(state.internalWidget, state.searchEnabled.cbool)
+    
+    hooks visiblePage:
+      (build, update):
+        state.updateChild(state.visiblePage, widget.valVisiblePage, adw_preferences_window_set_visible_page)
+    
+    hooks visiblePageName:
+      property:
+        adw_preferences_window_set_visible_page_name(state.internalWidget, state.visiblePageName.cstring)
+  
+    adder add:
+      widget.hasPages = true
+      widget.valPages.add(child)
+  
   export NavigationPage
 
 export WindowSurface, WindowTitle, Avatar, Clamp, PreferencesGroup, PreferencesRow, ActionRow, ExpanderRow, ComboRow, Flap, SplitButton, StatusPage

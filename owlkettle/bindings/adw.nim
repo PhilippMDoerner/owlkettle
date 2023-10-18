@@ -43,17 +43,17 @@ proc adw_window_new*(): GtkWidget
 proc adw_window_set_content*(window, content: GtkWidget)
 
 # Adw.PreferencesWindow
-proc adw_preferences_window_new (): GtkWindow
-proc adw_preferences_window_add (self: GtkWidget, page: GtkWidget)
-proc adw_preferences_window_add_toast (self: GtkWidget, toast: AdwToast)
-proc adw_preferences_window_remove (self: GtkWidget, page: GtkWidget)
-proc adw_preferences_window_set_search_enabled (self: GtkWidget, search_enabled: cbool)
-proc adw_preferences_window_set_visible_page (self: GtkWidget, page: GtkWidget)
-proc adw_preferences_window_set_visible_page_name (self: GtkWidget, name: cstring)
+proc adw_preferences_window_new*(): GtkWidget
+proc adw_preferences_window_add*(self: GtkWidget, page: GtkWidget)
+proc adw_preferences_window_add_toast*(self: GtkWidget, toast: AdwToast)
+proc adw_preferences_window_remove*(self: GtkWidget, page: GtkWidget)
+proc adw_preferences_window_set_search_enabled*(self: GtkWidget, search_enabled: cbool)
+proc adw_preferences_window_set_visible_page*(self: GtkWidget, page: GtkWidget)
+proc adw_preferences_window_set_visible_page_name*(self: GtkWidget, name: cstring)
 
 when AdwVersion >= (1, 4):
-  proc adw_preferences_window_pop_subpage (self: GtkWidget): cbool
-  proc adw_preferences_window_push_subpage (self: GtkWidget, page: GtkWidget)
+  proc adw_preferences_window_pop_subpage*(self: GtkWidget): cbool
+  proc adw_preferences_window_push_subpage*(self: GtkWidget, page: GtkWidget)
 
 
 # Adw.WindowTitle
