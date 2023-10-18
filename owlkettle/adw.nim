@@ -24,7 +24,7 @@
 
 when defined(nimPreviewSlimSystem):
   import std/assertions
-import widgetdef, widgets, mainloop, widgetutils
+import widgetdef, widgets, mainloop, widgetutils, guidsl
 import ./bindings/[adw, gtk]
 
 export adw.StyleManager
@@ -713,6 +713,64 @@ when AdwVersion >= (1, 2) or defined(owlkettleDocs):
           adw_about_window_set_license(state.internalWidget, state.license.cstring)
   
   export AboutWindow
+
+when AdwVersion >= (1, 4) or defined(owlkettleDocs):
+  renderable NavigationPage of BaseWidget:
+    child: Widget = gui(Label(text = "Potato"))
+    canPop: bool = true
+    tag: string
+    title: string
+    
+    proc hidden()
+    proc hiding()
+    proc showing()
+    proc shown()
+    
+    hooks:
+      beforeBuild:
+        when AdwVersion >= (1, 4):
+          let dummyWidget: GtkWidget = gtk_label_new("".cstring)
+          state.internalWidget = adw_navigation_page_new(dummyWidget, "".cstring)
+        else:
+          raise newException(ValueError, "Compile for Adwaita version 1.4 or higher with -d:adwMinor=4 to enable the NavigationPage widget.")
+      connectEvents:
+        state.connect(state.hidden, "hidden", eventCallback)
+        state.connect(state.hiding, "hiding", eventCallback)
+        state.connect(state.showing, "showing", eventCallback)
+        state.connect(state.shown, "shown", eventCallback)
+      disconnectEvents:
+        state.internalWidget.disconnect(state.hidden)
+        state.internalWidget.disconnect(state.hiding)
+        state.internalWidget.disconnect(state.showing)
+        state.internalWidget.disconnect(state.shown)
+    
+    hooks child:
+      (build, update):
+        when AdwVersion >= (1, 4):
+          state.updateChild(state.child, widget.valChild, adw_navigation_page_set_child)
+    
+    hooks canPop:
+      property:
+        when AdwVersion >= (1, 4):
+          adw_navigation_page_set_can_pop(state.internalWidget, state.canPop.cbool)
+    
+    hooks tag:
+      property:
+        when AdwVersion >= (1, 4):
+          adw_navigation_page_set_tag(state.internalWidget, state.tag.cstring)
+    
+    hooks title:
+      property:
+        when AdwVersion >= (1, 4):
+          adw_navigation_page_set_title(state.internalWidget, state.title.cstring)
+    
+    adder add:
+      if widget.hasChild:
+        raise newException(ValueError, "Unable to add multiple children to a NavigationPage.")
+      widget.hasChild = true
+      widget.valChild = child
+      
+  export NavigationPage
 
 export WindowSurface, WindowTitle, Avatar, Clamp, PreferencesGroup, PreferencesRow, ActionRow, ExpanderRow, ComboRow, Flap, SplitButton, StatusPage
 
