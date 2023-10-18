@@ -26,12 +26,15 @@ when defined(nimPreviewSlimSystem):
   import std/assertions
 import widgetdef, widgets, mainloop, widgetutils, guidsl
 import ./bindings/[adw, gtk]
+import ../owlkettle
 
 export adw.StyleManager
 export adw.ColorScheme
 export adw.FlapFoldPolicy
 export adw.FoldThresholdPolicy
 export adw.FlapTransitionType
+export adw.ToastPriority
+export adw.isNil
 
 when defined(owlkettleDocs) and isMainModule:
   echo "# Libadwaita Widgets\n\n"
@@ -812,7 +815,128 @@ when AdwVersion >= (1, 4) or defined(owlkettleDocs):
   
   export NavigationPage
 
+## Adw.Toast
+proc newToast*(title: string): AdwToast =
+  result = adw_toast_new(title.cstring)
+
+proc dismissToast*(toast: AdwToast) =
+  adw_toast_dismiss(toast)
+
+proc `actionName=`*(toast: AdwToast, actionName: string) =
+  adw_toast_set_action_name(toast, actionName.cstring)
+
+proc `actionName`*(toast: AdwToast): string =
+  $adw_toast_get_action_name(toast)
+
+proc `actionTarget=`*(toast: AdwToast, actionTarget: string) =
+  adw_toast_set_action_target(toast, actionTarget.cstring)
+
+proc `actionTarget`*(toast: AdwToast): string =
+  $adw_toast_get_action_target(toast)
+
+proc `buttonLabel=`*(toast: AdwToast, buttonLabel: string) =
+  adw_toast_set_button_label(toast, buttonLabel.cstring)
+
+proc `buttonLabel`*(toast: AdwToast): string =
+  $adw_toast_get_button_label(toast)
+
+proc `detailedActionName=`*(toast: AdwToast, detailedActionName: string) =
+  adw_toast_set_detailed_action_name(toast, detailedActionName.cstring)
+
+proc `priority=`*(toast: AdwToast, priority: ToastPriority) = 
+  adw_toast_set_priority(toast, priority)
+
+proc `priority`*(toast: AdwToast): ToastPriority = 
+  adw_toast_get_priority(toast)
+
+proc `timeout=`*(toast: AdwToast, timeout: SomeInteger) =
+  ## Sets the time in seconds after which the toast is automatically dismissed.
+  adw_toast_set_timeout(toast, timeout.cuint)
+
+proc `timeout`*(toast: AdwToast): int =
+  ## The time in seconds after which this toast will be automatically dismissed by ToastOverlay.
+  adw_toast_get_timeout(toast).int
+
+proc `title=`*(toast: AdwToast, title: string) =
+  adw_toast_set_title(toast, title.cstring)
+
+proc `title`*(toast: AdwToast): string =
+  $adw_toast_get_title(toast)
+
+proc `dismissalHandler=`*(toast: AdwToast, handler: proc(toast: AdwToast)) =
+  proc dismissalCallback(dismissedToast: AdwToast, data: ptr EventObj[proc (toast: AdwToast)]) {.cdecl.} = 
+    let event = unwrapSharedCell(data)
+    event.callback(dismissedToast)
+    # Disconnect event-handler after Toast was dismissed
+    g_signal_handler_disconnect(pointer(dismissedToast), event.handler)
+  
+  let event = EventObj[proc(toast: AdwToast)]()
+  let data = allocSharedCell(event)
+  data.callback = handler
+  data.handler = g_signal_connect(toast, "dismissed".cstring, dismissalCallback, data)
+
+when AdwVersion >= (1, 2):
+  proc `customTitle=`*(toast: AdwToast, title: GtkWidget) =
+    adw_toast_set_custom_title(toast, title)
+
+  proc `clickedHandler=`*(toast: AdwToast, handler: proc()) =
+    proc clickCallback(dismissedToast: AdwToast, data: ptr EventObj[proc()]) {.cdecl.} =
+      let event = unwrapSharedCell(data)
+      event.callback()
+      # Disconnect event-handler after first click as that will dismisses the toast
+      g_signal_handler_disconnect(pointer(dismissedToast), event.handler)
+    
+    let event = EventObj[proc()]()
+    let data = allocSharedCell(event)
+    data.callback = handler
+    data.handler = g_signal_connect(toast, "button-clicked".cstring, clickCallback, data)
+    
+when AdwVersion >= (1, 4):
+  proc `titleMarkup=`*(toast: AdwToast, useMarkup: bool) =
+    adw_toast_set_use_markup(toast, useMarkup.cbool)
+
+proc `==`(x, y: AdwToast): bool = x.pointer == y.pointer
+
+renderable ToastOverlay of BaseWidget:
+  ## An overlay to display Toast messages that can be dismissed manually and automatically!<br>
+  ## Use `newToast` to create an `AdwToast`.
+  ## `AdwToast` has the following properties that can be assigned to:
+  ## - actionName
+  ## - actionTarget
+  ## - buttonLabel: If set, the Toast will contain a button with this string as its text. If not set, it will not contain a button.
+  ## - detailedActionName
+  ## - priority: Defines the behaviour of the toast. `ToastPriorityNormal` will put the toast at the end of the queue of toasts to display. `ToastPriorityHigh` will display the toast **immediately**, ignoring any others.
+  ## - timeout: The time in seconds after which the toast is dismissed automatically. Disables automatic dismissal if set to 0. Defaults to 5. 
+  ## - title: The text to display in the toast. Gets hidden if customTitle is set.
+  ## - customTitle: A Widget to display in the toast. Causes title to be hidden if it is set. Only available when compiling for Adwaita version 1.2 or higher.
+  ## - dismissalHandler: An event-handler proc that gets called when this specific toast gets dismissed
+  ## - clickedHandler: An event-handler proc that gets called when the User clicks on the toast's button that appears if `buttonLabel` is defined. Only available when compiling for Adwaita version 1.4 or higher.
+
+  child: Widget
+  toast: AdwToast ## The Toast to display
+
+  hooks:
+    beforeBuild:
+      state.internalWidget = adw_toast_overlay_new()
+  
+  hooks child:
+    (build, update):
+      state.updateChild(state.child, widget.valChild, adw_toast_overlay_set_child)
+  
+  hooks toast:
+    property:
+      if not state.toast.isNil():
+        adw_toast_overlay_add_toast(state.internalWidget, state.toast)
+        
+  adder add:
+    if widget.hasChild:
+      raise newException(ValueError, "Unable to add multiple children to a Toast Overlay.")
+    widget.hasChild = true
+    widget.valChild = child
+
+
 export WindowSurface, WindowTitle, Avatar, Clamp, PreferencesGroup, PreferencesRow, ActionRow, ExpanderRow, ComboRow, Flap, SplitButton, StatusPage
+export ToastOverlay, AdwToast
 
 proc brew*(widget: Widget,
            icons: openArray[string] = [],
