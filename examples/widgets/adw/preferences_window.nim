@@ -26,27 +26,84 @@ viewable App:
   # PreferencesWindow
   searchEnabled: bool = false
   
+  # PreferencesWindow.Toast
+  title: string
+  actionName: string
+  detailedActionName: string
+  actionTarget: string
+  buttonLabel: string = "Btn Label"
+  priority: ToastPriority = ToastPriorityNormal
+  timeout: int = 3
+  useMarkup: bool = true ## Enables using markup in title. Only available for Adwaita version 1.4 or higher. Compile for Adwaita version 1.4 or higher with -d:adwMinor=4.
   
+  showToast: bool = false
+
   # NavigationPage 1
   canPop1: bool = true
   tag1: string = "The first page"
   title1: string = "Page 1"
-  
     
   # NavigationPage 2
   canPop2: bool = true
   tag2: string = "The second page"
   title2: string = "Page 2"
 
+proc buildToast(state: AppState): AdwToast =
+  result = newToast(state.title)
+  if state.actionName != "":
+    result.actionName = state.actionName
+    
+  if state.actionTarget != "":
+    result.actionTarget = state.actionTarget
+
+  if state.buttonLabel != "":
+    result.buttonLabel = state.buttonLabel
+
+  if state.detailedActionName != "":
+    result.detailedActionName = state.detailedActionName
+
+  result.priority = state.priority
+  result.timeout = state.timeout
+  result.titleMarkup = state.useMarkup
+
+  result.dismissalHandler = proc(toast: AdwToast) = 
+    echo "Dismissed: ", toast.title
+    state.showToast = false
+  # result.clickedHandler = proc() = echo "Click" # Comment in if you compile with -d:adwminor=2 or higher
+
+
 method view(app: AppState): Widget =
+  let toast: AdwToast = buildToast(app)
+
   result = gui:
     Window():
       defaultSize = (800, 600)
       title = "Status Page Example"
       HeaderBar {.addTitlebar.}:
         insert(app.toAutoFormMenu(sizeRequest = (400, 250))){.addRight.}
-      
+            
+        Button() {.addRight.}:
+          style = [ButtonFlat]
+          text = "Urgent"
+          proc clicked() = 
+            app.showToast = true
+            app.priority = ToastPriorityHigh
+            app.title = "Urgent Toast Title !!!"
+            
+        Button() {.addRight.}:
+          style = [ButtonFlat]
+          text = "Notify"
+          proc clicked() = 
+            app.showToast = true
+            app.priority = ToastPriorityNormal
+            app.title = "Toast title"
+
       PreferencesWindow():
+        searchEnabled = app.searchEnabled
+        visiblePageName = app.title1
+        if app.showToast:
+          toast = toast
+          
         NavigationPage():
           canPop = app.canPop1
           tag = app.tag1
