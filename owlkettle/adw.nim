@@ -769,8 +769,38 @@ when AdwVersion >= (1, 4) or defined(owlkettleDocs):
         raise newException(ValueError, "Unable to add multiple children to a NavigationPage.")
       widget.hasChild = true
       widget.valChild = child
+  
+  renderable NavigationView of BaseWidget:
+    pages: seq[Widget]
+    animateTransitions: bool = true
+    popOnEscape: bool = true
+    
+    hooks:
+      beforeBuild:
+        state.internalWidget = adw_navigation_view_new()
+    
+    hooks pages:
+      (build, update):
+        state.updateChildren(
+          state.pages,
+          widget.valPages,
+          adw_navigation_view_add,
+          adw_navigation_view_remove
+        )
       
-  export NavigationPage
+    hooks animateTransitions:
+      property:
+        adw_navigation_view_set_animate_transitions(state.internalWidget, state.animateTransitions.cbool)
+    
+    hooks popOnEscape:
+      property:
+        adw_navigation_view_set_pop_on_escape(state.internalWidget, state.popOnEscape.cbool)
+    
+    adder add:
+      widget.hasPages = true
+      widget.valPages.add(child)
+    
+  export NavigationPage, NavigationView
 
 export WindowSurface, WindowTitle, Avatar, Clamp, PreferencesGroup, PreferencesRow, ActionRow, ExpanderRow, ComboRow, Flap, SplitButton, StatusPage
 

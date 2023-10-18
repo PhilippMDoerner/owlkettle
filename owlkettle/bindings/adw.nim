@@ -147,3 +147,19 @@ when AdwVersion >= (1, 4):
   proc adw_navigation_page_set_child*(self: GtkWidget,  child: GtkWidget)
   proc adw_navigation_page_set_tag*(self: GtkWidget,  tag: cstring)
   proc adw_navigation_page_set_title*(self: GtkWidget,  title: cstring)
+  
+  # Adw.NavigationView
+  proc adw_navigation_view_new*(): GtkWidget
+  proc adw_navigation_view_add*(self: GtkWidget, page: GtkWidget)
+  proc adw_navigation_view_pop*(self: GtkWidget): cbool
+  proc adw_navigation_view_pop_to_page*(self: GtkWidget, page: GtkWidget): cbool
+  proc adw_navigation_view_pop_to_tag*(self: GtkWidget, tag: cstring): cbool
+  proc adw_navigation_view_push*(self: GtkWidget, page: GtkWidget)
+  proc adw_navigation_view_push_by_tag*(self: GtkWidget, tag: cstring)
+  proc adw_navigation_view_remove*(self: GtkWidget, page: GtkWidget)
+  proc adw_navigation_view_replace*(self: GtkWidget, pages: seq[GtkWidget], n_pages: cint)
+  proc adw_navigation_view_replace_with_tags*(self: GtkWidget, tags: seq[cstring], n_tags: cint)
+  proc adw_navigation_view_set_animate_transitions*(self: GtkWidget, animate_transitions: cbool)
+  proc adw_navigation_view_set_pop_on_escape*(self: GtkWidget, pop_on_escape: cbool)
+
+{.pop.}
