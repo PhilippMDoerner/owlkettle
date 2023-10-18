@@ -139,3 +139,11 @@ when AdwVersion >= (1, 2):
   proc adw_about_window_set_website*(window: GtkWidget, value: cstring)
   proc adw_about_window_set_copyright*(window: GtkWidget, value: cstring)
   proc adw_about_window_set_license*(window: GtkWidget, value: cstring)
+
+when AdwVersion >= (1, 4):
+  # Adw.NavigationPage
+  proc adw_navigation_page_new*(child: GtkWidget, title: cstring): GtkWidget
+  proc adw_navigation_page_set_can_pop*(self: GtkWidget, can_pop: cbool)
+  proc adw_navigation_page_set_child*(self: GtkWidget,  child: GtkWidget)
+  proc adw_navigation_page_set_tag*(self: GtkWidget,  tag: cstring)
+  proc adw_navigation_page_set_title*(self: GtkWidget,  title: cstring)
