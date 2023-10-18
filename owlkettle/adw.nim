@@ -961,12 +961,15 @@ when AdwVersion >= (1, 4) or defined(owlketteldocs):
     
     hooks pages:
       (build, update):
+        echo "PageCount: ", state.pages.len(), " - ", widget.valPages.len()
         state.updateChildren(
           state.pages,
           widget.valPages,
           adw_preferences_window_add,
           adw_preferences_window_remove
         )
+        echo "PageCount: ", state.pages.len(), " - ", widget.valPages.len()
+
     
     hooks searchEnabled:
       property:
@@ -974,11 +977,13 @@ when AdwVersion >= (1, 4) or defined(owlketteldocs):
     
     hooks visiblePage:
       (build, update):
-        state.updateChild(state.visiblePage, widget.valVisiblePage, adw_preferences_window_set_visible_page)
+        if not state.visiblePage.isNil():
+          state.updateChild(state.visiblePage, widget.valVisiblePage, adw_preferences_window_set_visible_page)
     
     hooks visiblePageName:
       property:
-        adw_preferences_window_set_visible_page_name(state.internalWidget, state.visiblePageName.cstring)
+        if state.visiblePageName != "":
+          adw_preferences_window_set_visible_page_name(state.internalWidget, state.visiblePageName.cstring)
   
     adder add:
       widget.hasPages = true
@@ -989,6 +994,8 @@ when AdwVersion >= (1, 4) or defined(owlketteldocs):
         raise newException(ValueError, "Unable to add multiple visible pages to a Preferences Window.")
       widget.hasVisiblePage = true
       widget.valVisiblePage = child
+      widget.hasPages = true
+      widget.valPages.add(child)
   
   export PreferencesWindow
 

@@ -21,13 +21,14 @@
 # SOFTWARE.
 
 import owlkettle, owlkettle/[playground, adw]
+import std/sequtils
 
 viewable App:
   # PreferencesWindow
   searchEnabled: bool = false
   
   # PreferencesWindow.Toast
-  title: string
+  toastTitle: string
   actionName: string
   detailedActionName: string
   actionTarget: string
@@ -38,18 +39,21 @@ viewable App:
   
   showToast: bool = false
 
-  # NavigationPage 1
-  canPop1: bool = true
-  tag1: string = "The first page"
-  title1: string = "Page 1"
-    
-  # NavigationPage 2
-  canPop2: bool = true
-  tag2: string = "The second page"
-  title2: string = "Page 2"
+  # Preference Page
+  iconName: string = "weather-clear-symbolic"
+  pageTitle: string = "Some Title"
+  name: string = "Page Name"
+  description: string = "An example of a Preferences Page"
+  useUnderline: bool = false
+  
+  likeLevel: string 
+  reasonForLikingExample: string
+  
+  likeOptions: seq[string] = @["A bit", "A lot", "very much", "Fantastic!",  "I love it!"]
+  
 
 proc buildToast(state: AppState): AdwToast =
-  result = newToast(state.title)
+  result = newToast(state.toastTitle)
   if state.actionName != "":
     result.actionName = state.actionName
     
@@ -71,10 +75,45 @@ proc buildToast(state: AppState): AdwToast =
     state.showToast = false
   # result.clickedHandler = proc() = echo "Click" # Comment in if you compile with -d:adwminor=2 or higher
 
+proc buildPreferencesPage(state: AppState, index: int): Widget =
+  let name = state.name & " " & $index
+  echo "Name: ", name
+  gui:
+    PreferencesPage():
+      iconName = state.iconName
+      title = state.pageTitle
+      name = name
+      description = state.description
+      useUnderline = state.useUnderline
+      
+      PreferencesGroup:
+        title = "First group setting"
+        description = "Figuring out how cool this example is"
+
+        ComboRow():
+          title = "How much do you like this example?"
+          items = state.likeOptions
+          
+          proc select(selectedIndex: int) =
+            state.likeLevel = state.likeOptions[selectedIndex]
+      
+      PreferencesGroup:
+        title = "Second group settings"
+        description = "Justifying why this example is so cool"
+
+        EntryRow():
+          title = "This example is so cool because:"
+          subtitle = "Truly, just show your thoughts"
+          text = state.reasonForLikingExample
+          
+          proc changed(newText: string) =
+            state.reasonForLikingExample = newText
+
 
 method view(app: AppState): Widget =
   let toast: AdwToast = buildToast(app)
-
+  let pages: seq[Widget] = (1..1).mapIt(app.buildPreferencesPage(it))
+  
   result = gui:
     Window():
       defaultSize = (800, 600)
@@ -88,7 +127,7 @@ method view(app: AppState): Widget =
           proc clicked() = 
             app.showToast = true
             app.priority = ToastPriorityHigh
-            app.title = "Urgent Toast Title !!!"
+            app.toastTitle = "Urgent Toast Title !!!"
             
         Button() {.addRight.}:
           style = [ButtonFlat]
@@ -96,37 +135,18 @@ method view(app: AppState): Widget =
           proc clicked() = 
             app.showToast = true
             app.priority = ToastPriorityNormal
-            app.title = "Toast title"
+            app.toastTitle = "Toast title"
 
       PreferencesWindow():
         searchEnabled = app.searchEnabled
-        visiblePageName = app.title1
+        # visiblePageName =  app.name & " 1"
         if app.showToast:
           toast = toast
           
-        NavigationPage():
-          canPop = app.canPop1
-          tag = app.tag1
-          title = app.title1
-          
-          proc hidden() = echo "Hidden1"
-          proc hiding() = echo "Hiding1"
-          proc showing() = echo "Showing1"
-          proc shown() = echo "Shown1"
-          
-          Label(text = "This is Preferences Page 1!")
-        
-        NavigationPage():
-          canPop = app.canPop2
-          tag = app.tag2
-          title = app.title2
-          
-          proc hidden() = echo "Hidden2"
-          proc hiding() = echo "Hiding2"
-          proc showing() = echo "Showing2"
-          proc shown() = echo "Shown2"
-          
-          Label(text = "This is Preferences Page 2!")
-      
+        for index, page in pages:
+          # if index == 0:
+          #   insert(page) {.addVisible.}
+          # else:
+          insert(page) {.addVisible.}
 
 adw.brew(gui(App()))
