@@ -221,6 +221,54 @@ renderable PreferencesGroup of BaseWidget:
         subtitle = "Subtitle"
         Switch() {.addSuffix.}
 
+renderable PreferencesPage of BaseWidget:
+  preferences: seq[Widget]
+  iconName: string
+  name: string
+  title: string
+  useUnderline: bool
+  description: string
+  
+  hooks:
+    beforeBuild:
+      state.internalWidget = adw_preferences_page_new()
+  
+  hooks preferences:
+    (build, update):
+      state.updateChildren(
+        state.preferences,
+        widget.valPreferences,
+        adw_preferences_page_add,
+        adw_preferences_page_remove
+      )
+  
+  hooks iconName:
+    property:
+      adw_preferences_page_set_icon_name(state.internalWidget, state.iconName.cstring)
+  
+  hooks name:
+    property:
+      adw_preferences_page_set_name(state.internalWidget, state.name.cstring)
+      
+  hooks title:
+    property:
+      adw_preferences_page_set_title(state.internalWidget, state.title.cstring)
+      
+  hooks useUnderline:
+    property:
+      adw_preferences_page_set_use_underline(state.internalWidget, state.useUnderline.cbool)
+      
+  hooks description:
+    property:
+      when AdwVersion >= (1, 4):
+        adw_preferences_page_set_description(state.internalWidget, state.description.cstring)
+      else:
+        raise newException(LibraryError, "Compile for Adwaita version 1.4 or higher with -d:adwMinor=4 to enable the description field for PreferencesPage.")
+  
+  adder add:
+    widget.valPreferences.add(child)
+  
+
 renderable PreferencesRow of ListBoxRow:
   title: string
   
@@ -945,7 +993,7 @@ when AdwVersion >= (1, 4) or defined(owlketteldocs):
   export PreferencesWindow
 
 
-export WindowSurface, WindowTitle, Avatar, Clamp, PreferencesGroup, PreferencesRow, ActionRow, ExpanderRow, ComboRow, Flap, SplitButton, StatusPage
+export WindowSurface, WindowTitle, Avatar, Clamp, PreferencesGroup, PreferencesRow, ActionRow, ExpanderRow, ComboRow, Flap, SplitButton, StatusPage, PreferencesPage
 export ToastOverlay, AdwToast
 
 proc brew*(widget: Widget,
