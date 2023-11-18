@@ -249,10 +249,10 @@ renderable PreferencesGroup of BaseWidget:
 
 renderable PreferencesPage of BaseWidget:
   preferences: seq[Widget]
-  iconName: string
-  name: string
-  title: string
-  useUnderline: bool
+  iconName: string ## The icon used for the pages tab in PreferencesWindow
+  name: string ## Identifier of the page.
+  title: string ## Label used for the pages tab in PreferencesWindow
+  useUnderline: bool ## Defines whether you can use `_` on part of the title to make changing the tab via hotkey. If you prefix a character of the title with `_` it will hide the `_` and open the page if you press ALT + the key of the character. E.g. `_PreferencesPage.Title` will change the page when pressing `ALT + P`.
   description: string
   
   hooks:
@@ -294,7 +294,41 @@ renderable PreferencesPage of BaseWidget:
   adder add:
     widget.valPreferences.add(child)
   
+renderable PreferencesWindow of AdwWindow:
+  pages: seq[Widget]
+  visiblePageName: string ## Defines the name of the page currently being displayed. Changing this programmatically will also change the visible page.
+  searchEnabled: bool
+  # toast: Toast
+  
+  hooks:
+    beforeBuild:
+      state.internalWidget = adw_preferences_window_new()
+  
+  hooks pages:
+    (build, update):
+      state.updateChildren(
+        state.pages,
+        widget.valPages,
+        adw_preferences_window_add,
+        adw_preferences_window_remove
+      )
+  
+  hooks visiblePageName:
+    property:
+      adw_preferences_window_set_visible_page_name(state.internalWidget, state.visiblePageName.cstring)
+  
+  hooks searchEnabled:
+    property:
+      adw_preferences_window_set_search_enabled(state.internalWidget, state.searchEnabled.cbool)
 
+  # hooks toast:
+  #   property:
+  #     adw_preferences_window_add_toast(state.internalWidget, state.toast.toGtk())
+
+  adder add:
+    widget.hasPages = true
+    widget.valPages.add(child)
+  
 renderable PreferencesRow of ListBoxRow:
   title: string
   
@@ -987,6 +1021,7 @@ when AdwVersion >= (1, 3) or defined(owlkettleDocs):
   export Banner
 
 export AdwWindow, WindowTitle, AdwHeaderBar, Avatar, ButtonContent, Clamp, PreferencesGroup, PreferencesRow, ActionRow, ExpanderRow, ComboRow, Flap, SplitButton, StatusPage, PreferencesPage
+export PreferencesWindow
 
 type AdwAppConfig = object of AppConfig
   colorScheme: ColorScheme

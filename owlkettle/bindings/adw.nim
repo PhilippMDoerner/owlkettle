@@ -125,6 +125,19 @@ when AdwVersion >= (1, 3):
 when AdwVersion >= (1, 4):
   proc adw_preferences_page_set_description*(self: GtkWidget, description: cstring)
 
+# Adw.PreferencesWindow
+proc adw_preferences_window_new*(): GtkWidget
+proc adw_preferences_window_add*(self: GtkWidget, page: GtkWidget)
+# proc adw_preferences_window_add_toast*(self: GtkWidget, toast: AdwToast)
+proc adw_preferences_window_remove*(self: GtkWidget, page: GtkWidget)
+proc adw_preferences_window_set_search_enabled*(self: GtkWidget, search_enabled: cbool)
+proc adw_preferences_window_set_visible_page*(self: GtkWidget, page: GtkWidget)
+proc adw_preferences_window_set_visible_page_name*(self: GtkWidget, name: cstring)
+
+when AdwVersion >= (1, 4):
+  proc adw_preferences_window_pop_subpage*(self: GtkWidget): cbool
+  proc adw_preferences_window_push_subpage*(self: GtkWidget, page: GtkWidget)
+
 # Adw.ActionRow
 proc adw_action_row_new*(): GtkWidget
 proc adw_action_row_set_subtitle*(row: GtkWidget, subtitle: cstring)
@@ -217,6 +230,7 @@ when AdwVersion >= (1, 4):
   proc adw_switch_row_new*(): GtkWidget
   proc adw_switch_row_set_active*(self: GtkWidget, is_active: cbool)
   proc adw_switch_row_get_active*(self: GtkWidget): cbool
+
 when AdwVersion >= (1, 3):
   # Adw.Banner
   proc adw_banner_new*(title: cstring): GtkWidget
